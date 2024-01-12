@@ -1,0 +1,58 @@
+{
+    "name": "sevenspan/laravel-whatsapp",
+    "description": "It uses whatsapp cloud API to send whatsapp messages.",
+    "keywords": [
+        "laravel",
+        "laravel-whatsapp",
+        "whatsapp"
+    ],
+    "homepage": "https://github.com/7span/laravel-whatsapp",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Nikunj Gadhiya",
+            "email": "nikunjpgadhiya@gmail.com",
+            "homepage": "https://github.com/nikunj320",
+            "role": "Developer"
+        },
+        {
+            "name": "Hemratna Bhimani",
+            "email": "hemratna.bhimani@gmail.com",
+            "homepage": "https://github.com/hemratna",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.2.5||^8.0||^8.1||^8.2"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "SevenSpan\\WhatsApp\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SevenSpan\\WhatsApp\\Tests\\": "tests"
+        }
+    },
+    "scripts": {},
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SevenSpan\\WhatsApp\\Providers\\WhatsAppServiceProvider"
+            ],
+            "aliases": {
+                "WhatsApp": "SevenSpan\\WhatsApp\\Facades\\WhatsApp"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
