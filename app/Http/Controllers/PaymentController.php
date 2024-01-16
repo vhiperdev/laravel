@@ -19,39 +19,56 @@ class PaymentController extends Controller
 {
     public function createPayment()
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $subscribers = Subscription::where('reseller_id', $user->id)->with('productplan')->first();
+            $subscribers = Subscription::where('reseller_id', $user->id)->with('productplan')->first();
 
-        $plan = $subscribers->productplan->plan;
-        $logo = asset('/dist/img/AdminLTELogo.png');
+            $plan = $subscribers->productplan->plan;
+            $logo = asset('/dist/img/AdminLTELogo.png');
 
-        $payer = new Payer(
-            $user->email
-        );
+            $payer = new Payer(
+                $user->email
+            );
 
-        $item = Item::make()
-            ->setTitle($plan->name)
-            ->setQuantity(1)
-            ->setUnitPrice($plan->value)
-            ->setDescription("Subscription plan")
-            ->setPictureUrl($logo)
-            ->setCategoryId($plan->id);
+            $value = $this->calculateAmount($plan->value, $subscribers->subscription_duration);
 
-        $preference = Preference::make()
-            ->setPayer($payer)
-            ->addItem($item)
-            ->setBackUrls(new BackUrls(
-                route('payment.callback', ['status' => 'success']),
-                route('payment.callback', ['status' => 'pending']),
-                route('payment.callback', ['status' => 'failure'])
-            ))
-            ->setExternalReference('20');
+            $item = Item::make()
+                ->setTitle($plan->name)
+                ->setQuantity(1)
+                ->setUnitPrice($value)
+                ->setDescription("Subscription plan")
+                ->setPictureUrl($logo)
+                ->setCategoryId($plan->id);
 
+            $preference = Preference::make()
+                ->setPayer($payer)
+                ->addItem($item)
+                ->setBackUrls(new BackUrls(
+                    route('payment.callback', ['status' => 'success']),
+                    route('payment.callback', ['status' => 'pending']),
+                    route('payment.callback', ['status' => 'failure'])
+                ))
+                ->setExternalReference('20');
 
-        $response = MercadoPago::preference()->create($preference);
+            $response = MercadoPago::preference()->create($preference);
 
-        return redirect($response['body']->init_point);
+            return redirect($response['body']->init_point);
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' =>  $e->getMessage()]);
+        }
+    }
+
+    protected function calculateAmount($amount, $duraton)
+    {
+        switch ($duraton) {
+            case 'monthly':
+                return $amount;
+            case 'quarterly':
+                return $amount * 6;
+            case 'anually':
+                return $amount * 12;
+        }
     }
 
 

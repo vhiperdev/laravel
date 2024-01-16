@@ -98,7 +98,70 @@
                                             {{$customer->created_at}}
                                         </div>
                                     </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription Plan</div>
+                                        <div class='customer_details_value'>
+                                            {{$customer->subscription[0]->productplan->plan->name}}
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription Product</div>
+                                        <div class='customer_details_value'>
+                                            {{$customer->subscription[0]->productplan->product->name}}
+                                        </div>
+                                    </div><br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription Duration</div>
+                                        <div class='customer_details_value'>
+                                            {{$customer->subscription[0]->subscription_duration}}
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription Due Date</div>
+                                        <div class='customer_details_value'>
+                                            {{$customer->subscription[0]->next_due_date}}
+                                        </div>
+                                    </div>
+                                    <br />
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card mb-5 border-0">
+                        <div class="card-header bg-white">
+                            Customer Subscription History
+                        </div>
+                        <div class="card-body bg-white">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <td>Subscription Duration</td>
+                                            <td>Payment Status</td>
+                                            <td>Payment Type</td>
+                                            <td>Next Payment Due Date</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($customer->subscriptionPaymentHistory as $sub)
+                                        <tr>
+                                            <td>{{$sub->subscription_duration}}</td>
+                                            <td>@if($sub->payment_status===1) paid @else unpaid @endif</td>
+                                            <td>{{$sub->payment_type}}</td>
+                                            <td>{{$sub->next_due_date_payment}}</td>
+                                        </tr>
+                                        @endforeach
+
+                                        @if(count($customer->subscriptionPaymentHistory)===0)
+
+                                        @endif
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -110,7 +173,7 @@
                     @foreach($customer->get_alert_history as $alert)
 
                     <div class="card shadow-none">
-                        <div class="card-header bg-white fs-6">
+                        <div class="card-header bg-warning fw-bolder fs-6">
                             {{$alert->created_at}}
                         </div>
                         <div class="card-body bg-white">

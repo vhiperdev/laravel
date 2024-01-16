@@ -10,6 +10,7 @@ use App\Services\SendMessages;
 use App\Traits\TextReplacementTrait;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class BillingMessengerService
@@ -227,6 +228,9 @@ class BillingMessengerService
         echo "Message: " . $message . PHP_EOL;
         echo "Bill ID: " . $billId . PHP_EOL;
 
+
+        $sender_id = Auth::user()->id;
+
         if (count($customers) > 0) {
             $customer_received_count = 0;
             $billingHistories = [];
@@ -235,7 +239,7 @@ class BillingMessengerService
                 $processedText = $this->replacePlaceholdersBulk($customer,  $message);
 
                 $sendMsg = new SendMessages();
-                $sendMsg->send($customer->whatsapp, $processedText);
+                $sendMsg->send($customer->whatsapp, $processedText,  $sender_id);
 
                 // Create billing history records for bulk insert
                 $billingHistories[] = [

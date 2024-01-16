@@ -38,4 +38,16 @@ class Customers extends Model
     {
         return $this->hasMany(CustomerAlert::class, 'customer_id', 'id');
     }
+
+    public function subscription()
+    {
+        return $this->hasMany(Subscription::class, 'customer_id', 'id');
+    }
+
+
+    public function subscriptionPaymentHistory()
+    {
+        // Assuming a one-to-one or many-to-one relationship
+        return $this->hasMany(SubscriptionPaymentHistory::class, 'customer_id', 'id');
+    }
 }

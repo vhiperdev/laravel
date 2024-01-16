@@ -144,7 +144,6 @@ class ResellerController extends Controller
 
     public function subscribeReseller(Request $request, $id, $status = 1)
     {
-        $this->authorize('store', Subscription::class);
 
         $validator = Validator::make($request->all(), [
             'product' => ['required', 'string', 'max:255'],
@@ -152,13 +151,14 @@ class ResellerController extends Controller
             'subscription_duration' => ['required', 'string', 'max:255'],
         ]);
 
+
         if ($validator->fails()) {
             return redirect()->back()->with(['error' => $validator->errors()->first()]);
         } else {
             try {
 
                 $subscription = Subscription::where('product_plan_id', $request->product_plan_id)
-                    ->where('user_id', auth()->user()->id)
+                    ->where('reseller_id', auth()->user()->id)
                     ->where('active_status', 0)
                     ->orderBy('id', 'desc')
                     ->first();
@@ -205,6 +205,43 @@ class ResellerController extends Controller
             case $subscription_duration === 'anually':
                 return $now->addMonth(12)->timestamp;
                 break;
+        }
+    }
+
+
+    public function newSubscribeReseller(Request $request, $id, $status = 1)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'product' => ['required', 'string', 'max:255'],
+            'product_plan_id' => ['required', 'string', 'max:255'],
+            'subscription_duration' => ['required', 'string', 'max:255'],
+        ]);
+
+        $now = Carbon::now();
+
+
+        if ($validator->fails()) {
+            return redirect()->back()->with(['error' => $validator->errors()->first()]);
+        } else {
+
+            try {
+                $nextTime =  $now->subDay(1);
+
+                $subscription = new Subscription();
+                $subscription->product_plan_id = $request->product_plan_id;
+                $subscription->reseller_id = $id;
+                $subscription->next_due_date = $nextTime;
+                $subscription->subscription_duration = $request->subscription_duration;
+
+                $subscription->active_status = 1;
+
+                $subscription->save();
+
+                return redirect()->route('home')->with('message', 'Subscription created successfully!');
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['error' => $e->getMessage()]);
+            }
         }
     }
 

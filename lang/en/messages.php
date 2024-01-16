@@ -30,4 +30,6 @@ return [
     'billing' => 'Billing',
     'system_settings' => 'System Settings',
     'logout' => 'Logout',
+    'whatsapp' => 'Whatsapp e.g +558534295301',
+    'whatsapp_menu' => 'Whatsapp'
 ];

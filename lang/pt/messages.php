@@ -30,4 +30,6 @@ return [
     'billing' => 'Faturamento',
     'system_settings' => 'Configurações do Sistema',
     'logout' => 'Sair',
+    'whatsapp' => 'Whatsapp e.g +558534295301',
+    'whatsapp_menu' => 'Whatsapp'
 ];

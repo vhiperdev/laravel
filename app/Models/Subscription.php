@@ -29,4 +29,10 @@ class Subscription extends Model
         // Assuming a one-to-one or many-to-one relationship
         return $this->belongsTo(ProductPlan::class, 'product_plan_id', 'id');
     }
+
+    public function subscriptionPaymentHistory()
+    {
+        // Assuming a one-to-one or many-to-one relationship
+        return $this->belongsTo(SubscriptionPaymentHistory::class, 'subscription_id', 'id');
+    }
 }

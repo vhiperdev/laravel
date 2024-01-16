@@ -64,14 +64,16 @@ $countries = \App\Models\Country::get();
 
 
                             <div class="input-group mb-3">
-                                <div>
+
+                                <!-- <div>
                                     <select name="country_code" id="" class="form-control @error('country_code') is-invalid @enderror px-1" value="{{ old('country_code') }}" style="width:100px">
                                         @foreach($countries as $country)
                                         <option value="+{{$country['Phone Code']}}">{{$country->ISO2}} - +{{$country['Phone Code']}}</option>
                                         @endforeach
                                     </select>
-                                </div>
-                                <input type="text" id="whatsapp" name="whatsapp" class="form-control @error('whatsapp') is-invalid @enderror" value="{{ old('whatsapp') }}" required autocomplete="name" autofocus placeholder="{{__('messages.whatsapp')}}">
+                                </div> -->
+
+                                <input type="tel" id="whatsapp" name="whatsapp" class="form-control @error('whatsapp') is-invalid @enderror" value="{{ old('whatsapp') }}" required autocomplete="whatsapp" autofocus placeholder="{{__('messages.whatsapp')}}">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-user"></span>

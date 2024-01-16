@@ -13,7 +13,7 @@
                 <div class="card-header text-center"> Hello {{ auth()->user()->name }}.</div>
                 <div class="card-body">
                     <div class="alert alert-warning" role="alert">
-                        Your subscription has expired. Please renew your subscription to continue accessing our services.
+                        Your subscription has expired. Please renew your subscription to continue accessing our services or if you are a new user kindly pay to activate your account.
                     </div>
 
                     <form method="POST" action="{{ route('payment.createPayment') }}">

@@ -15,7 +15,6 @@ return new class extends Migration
 
         Schema::create('billings', function (Blueprint $table) {
             $table->id();
-
             $table->string('title');
             $table->boolean('automatic_sending')->default(0);
             $table->boolean('automatic_billing')->default(0);

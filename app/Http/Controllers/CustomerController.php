@@ -108,7 +108,7 @@ class CustomerController extends Controller
     {
         $this->authorize('view', Customers::class);
 
-        $customer  = Customers::with(['get_server', 'get_application', 'get_device'])->findOrFail($id);
+        $customer  = Customers::with(['get_server', 'get_application', 'get_device', 'subscription'])->findOrFail($id);
         // If the execution reaches here, it means the user is authorized
         // Perform actions specific to showing the customer
 

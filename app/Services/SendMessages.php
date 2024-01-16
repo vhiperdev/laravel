@@ -7,18 +7,19 @@ use Illuminate\Support\Facades\Log;
 
 class SendMessages
 {
-    public function send(string $number, string $message)
+    public function send(string $number, string $message, $sender_id)
     {
         $client = new Client();
 
         try {
-            $response = $client->post(env('WHATSAPP_API_URI'), [
+            $response = $client->post(env('WHATSAPP_API_URI', 'http://178.128.115.23/whatsapp-app/send-message'), [
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],
                 'json' => [
                     'number' => $number,
                     'message' => $message,
+                    'userId' => $sender_id
                 ],
             ]);
 

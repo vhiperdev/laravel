@@ -17,7 +17,7 @@
                     </div>
 
                     {{ __('Before proceeding, kindly choose a plan that best fit') }}
-                    <form method="POST" action="{{ route('reseller.subscriptions.store.sub', ['id'=> auth()->user()->id, 'status'=>0]) }}">
+                    <form method="POST" action="{{ route('reseller.subscriptions.new.subscriber', ['id'=> auth()->user()->id, 'status'=>0]) }}">
 
                         @csrf
 

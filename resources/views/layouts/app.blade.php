@@ -87,7 +87,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <a href="/" class="brand-link d-link">
                 <img src="{{asset($settings->site_logo)}}" alt="{{$settings->site_name}}" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
-                <span class="brand-text font-weight-light d-link"> {{ config('app.name', $settings->site_name) }}</span>
+                <span class="brand-text font-weight-light d-link"> @if($settings->site_name){{ $settings->site_name }} @else {{config('app.name')}} @endif</span>
             </a>
 
             <div class="sidebar">
@@ -218,6 +218,15 @@
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('whatsapp')}}" class="nav-link {{ (\Request::route()->getName() == 'whatsapp') ? 'active' : '' }}">
+                                <i class="nav-icon fab fa-whatsapp"></i>
+                                <p>
+                                    {{__('messages.whatsapp_menu')}}
+                                </p>
+                            </a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link {{ (\Request::route()->getName() == 'billing') ? 'active' : '' }}">

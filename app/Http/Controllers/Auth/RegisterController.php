@@ -30,8 +30,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
-            'whatsapp' => ['required', 'string', 'max:255', new NonUnique],
-            'country_code' => ['required', 'string', 'max:255'],
+            'whatsapp' => ['required', 'string', 'max:255', 'regex:/^\+\d{1,4}\d{8,}$/', new NonUnique],
             'server' => ['required', 'string', 'max:255'],
             'device' => ['required', 'string', 'max:255'],
             'server' => ['required', 'string', 'max:255'],
@@ -56,7 +55,6 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'whatsapp' => $data['whatsapp'],
-            'country_code' => $data['country_code'],
             'application' => $data['application'],
             'server' => $data['server'],
             'device' => $data['device'],

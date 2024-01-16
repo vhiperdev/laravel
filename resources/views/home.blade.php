@@ -242,8 +242,6 @@ $statusLabels2 = json_encode($statusLabels);
                             </div>
                         </div>
                     </div>
-
-
                 </section>
 
                 <section class="col-lg-5 connectedSortable">
@@ -277,5 +275,8 @@ $statusLabels2 = json_encode($statusLabels);
         </div>
     </section>
 </div>
- 
+
+@push('scripts')
+{{-- <script src="{{ mix('/js/app.js') }}"></script> --}}
+@endpush
 @endsection

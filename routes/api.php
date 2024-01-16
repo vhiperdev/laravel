@@ -22,3 +22,4 @@ Route::get('billing/sedingmode/{id}/{value}', [App\Http\Controllers\BillingContr
 
 Route::get('notice', [App\Http\Controllers\NotificationController::class, 'index'])->name('notice');
 Route::get('messaging/test', [App\Http\Controllers\NotificationController::class, 'test'])->name('messaging.alert.test');
+Route::post('whatsapp/save', [App\Http\Controllers\WhatsappSessionController::class, 'saveSession'])->name('whatsapp.session.save');

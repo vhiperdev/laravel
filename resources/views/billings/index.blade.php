@@ -46,7 +46,7 @@
                                 </div>
 
                                 <div class="col-12 mt-2 overflow-hidden">
-                                    <span class="me-1"><i class="fa fa-server me-1"></i></span> {{$bill->get_server->name}}
+                                    @if($bill->get_server) <span class="me-1"><i class="fa fa-server me-1"></i></span> {{$bill->get_server->name}} @endif
                                 </div>
                                 <div class="col-12 mt-2 overflow-hidden">
                                     <span class="me-1"><i class="fa fa-comment me-1"></i></span> {{$bill->get_message_template->title}}
@@ -153,7 +153,7 @@
                                 <div class="form-group">
                                     <label>Server</label>
                                     <select name="server" id="server" class="form-control select2  @error('server') is-invalid @enderror" style="width: 100%" autocomplete="server" autofocus>
-                                        <option>--select server--</option>
+                                        <option value="">--select server--</option>
                                         @foreach($servers as $server)
                                         <option value="{{$server->id}}">{{$server->name}}</option>
                                         @endforeach
@@ -168,7 +168,7 @@
                                 <div class="form-group">
                                     <label>Device</label>
                                     <select name="device_id" id="device_id" class="form-control select2  @error('device_id') is-invalid @enderror" style="width: 100%" autocomplete="device_id" autofocus>
-                                        <option>--select device--</option>
+                                        <option value="">--select device--</option>
                                         @foreach($devices as $device)
                                         <option value="{{$device->id}}">{{$device->name}}</option>
                                         @endforeach
@@ -183,7 +183,7 @@
                                 <div class="form-group">
                                     <label>Application</label>
                                     <select name="application_id" id="application_id" class="form-control select2  @error('application_id') is-invalid @enderror" style="width: 100%" autocomplete="application_id" autofocus>
-                                        <option>--select application--</option>
+                                        <option value="">--select application--</option>
                                         @foreach($applications as $app)
                                         <option value="{{$app->id}}">{{$app->name}}</option>
                                         @endforeach

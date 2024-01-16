@@ -8,10 +8,10 @@ use App\Models\CustomerAlert;
 use App\Models\Customers;
 use App\Models\MessageTemplate;
 use App\Models\User;
-use App\Services\BillingMessengerService;
 use App\Services\SendMessages;
 use App\Traits\TextReplacementTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class MessagingController extends Controller
@@ -60,8 +60,10 @@ class MessagingController extends Controller
 
             try {
 
+                $sender_id = Auth::user()->id;
+
                 $send = new SendMessages();
-                $send->send($customer->whatsapp, $data['message']);
+                $send->send($customer->whatsapp, $data['message'], $sender_id);
 
                 //save alert
                 $customer_alert = new CustomerAlert();
@@ -110,8 +112,9 @@ class MessagingController extends Controller
 
             try {
 
+                $sender_id = Auth::user()->id;
                 $send = new SendMessages();
-                $send->send($customer->whatsapp, $data['message']);
+                $send->send($customer->whatsapp, $data['message'],  $sender_id);
 
                 //save alert
                 $customer_alert = new CustomerAlert();

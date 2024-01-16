@@ -22,11 +22,20 @@ class SubscriptionCheckMiddleware
     public function handle(Request $request, Closure $next)
     {
 
-        $excludedRoutes = ['reseller.subscriptions.store', 'reseller.subscription.history', 'payment.createPayment', 'payment.callback', 'register.subscription.page'];
+        $excludedRoutes = [
+            'reseller.subscriptions.store',
+            'reseller.subscription.history',
+            'payment.createPayment',
+            'payment.callback',
+            'register.subscription.page',
+            'reseller.subscriptions.store.sub',
+            'reseller.subscriptions.new.subscriber'
+        ];
+
         if (Auth::check()) {
             if (!in_array($request->route()->getName(), $excludedRoutes) && Auth::user()->hasRole('reseller')) {
 
-                $subscription = Subscription::where('reseller_id', Auth::user()->id)->where('active_status', 1)->orderBy('id', 'desc')->first();
+                $subscription = Subscription::where('reseller_id', Auth::user()->id)->orderBy('id', 'desc')->first();
                 $plans = Plans::all();
                 if (!$subscription) {
 

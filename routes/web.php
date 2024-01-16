@@ -120,6 +120,18 @@ Route::post('messaging/alert/customer', [App\Http\Controllers\MessagingControlle
 
 Route::post('reseller/subscribe/{id}/{status}', [App\Http\Controllers\ResellerController::class, 'subscribeReseller'])->name('reseller.subscriptions.store.sub');
 
+Route::post('reseller/new-subscriber/{id}/{status}', [App\Http\Controllers\ResellerController::class, 'newSubscribeReseller'])->name('reseller.subscriptions.new.subscriber');
+
+// WHATSAPP
+
+Route::get('whatsapp', [App\Http\Controllers\WhatsappSessionController::class, 'index'])->name('whatsapp');
+Route::get('whatsapp/scanned/status/{id}', [App\Http\Controllers\WhatsappSessionController::class, 'scannedStatus'])->name('whatsapp.scanned.status');
+
+
+//payment  
+Route::post('payment/createPayment', [App\Http\Controllers\PaymentController::class, 'createPayment'])->name('payment.createPayment');
+Route::get('payment/callback/{status}', [App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
+
 
 // admin routes or controllers 
 Route::group(['middleware' => 'role:admin'], function () {
@@ -191,9 +203,4 @@ Route::group(['middleware' => 'role:admin'], function () {
 Route::group(['middleware' => 'role:reseller'], function () {
     // Reseller routes or controllers
     Route::post('reseller/subscription/history/store/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerHistory'])->name('reseller.subscription.history');
-
-
-    //payment  
-    Route::post('payment/createPayment', [App\Http\Controllers\PaymentController::class, 'createPayment'])->name('payment.createPayment');
-    Route::get('payment/callback/{status}', [App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
 });
