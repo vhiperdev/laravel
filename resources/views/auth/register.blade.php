@@ -28,7 +28,7 @@ $countries = \App\Models\Country::get();
             <div class="register-box">
                 <div class="card card-outline card-primary shadow-none border-0">
                     <div class="card-header text-center border-0">
-                        <a href="/" class="h1"><b>{{ config('app.name', 'Laravel') }}</b></a>
+                        <a href="/" class="h1"><b>{{ config('app.name', $settings->site_name??"") }}</b></a>
                     </div>
                     <div class="card-body">
                         <p class="login-box-msg">{{ __('messages.reseller_register') }}</p>
@@ -48,7 +48,7 @@ $countries = \App\Models\Country::get();
                                 @enderror
                             </div>
 
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" id="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}" required autocomplete="name" autofocus placeholder="{{__('messages.username')}}">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -60,7 +60,7 @@ $countries = \App\Models\Country::get();
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
+                            </div> -->
 
 
                             <div class="input-group mb-3">
@@ -91,7 +91,7 @@ $countries = \App\Models\Country::get();
                                 @enderror
                             </div>
 
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" id="server" name="server" class="form-control @error('server') is-invalid @enderror" value="{{ old('server') }}" required autocomplete="server" autofocus placeholder="{{__('messages.server')}}">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -103,11 +103,11 @@ $countries = \App\Models\Country::get();
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
+                            </div> -->
 
 
 
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" id="device" name="device" class="form-control @error('device') is-invalid @enderror" value="{{ old('device') }}" required autocomplete="device" autofocus placeholder="{{__('messages.device')}}">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -119,9 +119,9 @@ $countries = \App\Models\Country::get();
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
+                            </div> -->
 
-                            <div class="input-group mb-3">
+                            <!-- <div class="input-group mb-3">
                                 <input type="text" id="application" name="application" class="form-control @error('application') is-invalid @enderror" value="{{ old('application') }}" required autocomplete="application" autofocus placeholder="{{__('messages.application')}}">
                                 <div class="input-group-append">
                                     <div class="input-group-text">
@@ -133,7 +133,7 @@ $countries = \App\Models\Country::get();
                                     <strong>{{ $message }}</strong>
                                 </span>
                                 @enderror
-                            </div>
+                            </div> -->
 
                             <div class="input-group mb-3">
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{__('messages.email')}}">

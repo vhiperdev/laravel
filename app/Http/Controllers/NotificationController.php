@@ -10,6 +10,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
+
         $billMessenger = new BillingMessengerService();
         $billMessenger->index();
     }

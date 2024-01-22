@@ -76,19 +76,26 @@
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Server/provider</div>
                                         <div class='customer_details_value'>
-                                            {{$customer->get_server->name}}
+                                            @if($customer->get_server){{$customer->get_server->name}}@endif
                                         </div>
                                     </div><br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Application</div>
                                         <div class='customer_details_value'>
-                                            {{$customer->get_application->name}}
+                                            @if($customer->get_application){{$customer->get_application->name}}@endif
                                         </div>
                                     </div><br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Device</div>
                                         <div class='customer_details_value'>
-                                            {{$customer->get_device->name}}
+                                            @if($customer->get_device){{$customer->get_device->name}}@endif
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Password:</div>
+                                        <div class='customer_details_value'>
+                                            {{$customer->password}}
                                         </div>
                                     </div>
                                     <br />
@@ -102,27 +109,44 @@
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Subscription Plan</div>
                                         <div class='customer_details_value'>
+                                            @if(count($customer->subscription)>0)
                                             {{$customer->subscription[0]->productplan->plan->name}}
+                                            @else
+                                            Null
+                                            @endif
                                         </div>
                                     </div>
                                     <br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Subscription Product</div>
                                         <div class='customer_details_value'>
+                                            @if(count($customer->subscription)>0)
                                             {{$customer->subscription[0]->productplan->product->name}}
+                                            @else
+                                            Null
+                                            @endif
                                         </div>
                                     </div><br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Subscription Duration</div>
                                         <div class='customer_details_value'>
+
+                                            @if(count($customer->subscription)>0)
                                             {{$customer->subscription[0]->subscription_duration}}
+                                            @else
+                                            Null
+                                            @endif
                                         </div>
                                     </div>
                                     <br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Subscription Due Date</div>
                                         <div class='customer_details_value'>
+                                            @if(count($customer->subscription)>0)
                                             {{$customer->subscription[0]->next_due_date}}
+                                            @else
+                                            Null
+                                            @endif
                                         </div>
                                     </div>
                                     <br />

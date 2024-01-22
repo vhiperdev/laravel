@@ -188,6 +188,16 @@
                                                     </div>
 
 
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input name="password" class="form-control select2  @error('password') is-invalid @enderror" style="width: 100%" value="{{ old('password')?? $customer->password }}" autocomplete="password" autofocus>
+
+                                                        @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
                                                     <div class="form-group d-md-none">
                                                         <button class="btn btn-primary btn-md">Update</button>
                                                     </div>

@@ -23,7 +23,7 @@
 
             <div class="login-box">
                 <div class="login-logo">
-                    <a href="/"><b>{{ config('app.name', 'Laravel') }}</b></a>
+                    <a href="/"><b>{{ config('app.name', $settings->site_name??"") }}</b></a>
                 </div>
 
                 <div class="card shadow-none">

@@ -29,11 +29,11 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255'],
+            // 'username' => ['required', 'string', 'max:255'],
             'whatsapp' => ['required', 'string', 'max:255', 'regex:/^\+\d{1,4}\d{8,}$/', new NonUnique],
-            'server' => ['required', 'string', 'max:255'],
-            'device' => ['required', 'string', 'max:255'],
-            'server' => ['required', 'string', 'max:255'],
+            // 'server' => ['required', 'string', 'max:255'],
+            // 'device' => ['required', 'string', 'max:255'],
+            // 'server' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -41,23 +41,23 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
-        $server = $data['server'];
-        $application = $data['application'];
-        $device = $data['device'];
+        // $server = $data['server'];
+        // $application = $data['application'];
+        // $device = $data['device'];
 
 
-        Server::updateOrInsert(['name' =>  $server]);
-        Device::updateOrInsert(['name' =>  $device]);
-        Application::updateOrInsert(['name' =>  $application]);
+        // Server::updateOrInsert(['name' =>  $server]);
+        // Device::updateOrInsert(['name' =>  $device]);
+        // Application::updateOrInsert(['name' =>  $application]);
 
         $user =  User::create([
             'name' => $data['name'],
-            'username' => $data['username'],
+            // 'username' => $data['username'],
             'email' => $data['email'],
             'whatsapp' => $data['whatsapp'],
-            'application' => $data['application'],
-            'server' => $data['server'],
-            'device' => $data['device'],
+            // 'application' => $data['application'],
+            // 'server' => $data['server'],
+            // 'device' => $data['device'],
             'password' => Hash::make($data['password']),
         ]);
 

@@ -9,6 +9,9 @@ use App\Models\MessageTag;
 use App\Models\MessageTemplate;
 use App\Models\ProductPlan;
 use App\Models\Products;
+use App\Models\ResellerPlan;
+use App\Models\ResellerPlanSubscription;
+use App\Models\ResellerPlanSubscriptionHistory;
 use App\Models\Role;
 use App\Models\RoleUser;
 use App\Models\Server;
@@ -28,13 +31,22 @@ class ResellerController extends Controller
     {
         $resellerRole = Role::where('name', 'reseller')->first();
 
-        $resellers = RoleUser::where('role_id', $resellerRole->id)->with(['user', 'role', 'get_alert_history'])->get();
+        if ($resellerRole) {
+            $resellers = RoleUser::where('role_id', $resellerRole->id)->with(['user.subscription', 'role', 'get_alert_history'])->get();
 
+            $today = now();
 
-        $message_tag = MessageTag::all();
-        $message_templates = MessageTemplate::all();
+            $resellers->each(function ($reseller) use ($today) {
+                $reseller->isActive = $reseller->user->subscription()->where(function ($query) use ($today) {
+                    $query->where('next_due_date', '<=', $today)->orWhere('active_status', 0);
+                })->orderBy('id', 'desc')->first() ? 0 : 1;
+            });
 
-        return view('reseller.index', compact('resellers', 'message_templates', 'message_tag'));
+            $message_tag = MessageTag::all();
+            $message_templates = MessageTemplate::all();
+
+            return view('reseller.index', compact('resellers', 'message_templates', 'message_tag'));
+        }
     }
 
     /**
@@ -105,9 +117,10 @@ class ResellerController extends Controller
      */
     public function destroy(int $id)
     {
+
         try {
-            User::findOrFail($id)->delete();
-            return redirect()->back()->with('message', 'Delted successfully');
+            $user = User::findOrFail($id)->delete();
+            return redirect()->back()->with('message', 'Deleted successfully');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -118,12 +131,12 @@ class ResellerController extends Controller
      */
     public function subscriptions($reseller_id)
     {
-        $subscriptions = Subscription::where('reseller_id', $reseller_id)->with('reseller')->with('productplan')->get();
+        $subscriptions = ResellerPlanSubscription::where('reseller_id', $reseller_id)->with('reseller')->with('resellerPlan')->get();
 
-        $products = Products::all();
         $reseller = User::findOrFail($reseller_id);
+        $resellerPlan = ResellerPlan::all();
 
-        return view('reseller.subscription', compact('subscriptions', 'products', 'reseller'));
+        return view('reseller.subscription', compact('subscriptions', 'resellerPlan', 'reseller'));
     }
 
 
@@ -146,8 +159,7 @@ class ResellerController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'product' => ['required', 'string', 'max:255'],
-            'product_plan_id' => ['required', 'string', 'max:255'],
+            'plan' => ['required', 'string', 'max:255'],
             'subscription_duration' => ['required', 'string', 'max:255'],
         ]);
 
@@ -157,7 +169,7 @@ class ResellerController extends Controller
         } else {
             try {
 
-                $subscription = Subscription::where('product_plan_id', $request->product_plan_id)
+                $subscription = ResellerPlanSubscription::where('reseller_plan_id', $request->plan)
                     ->where('reseller_id', auth()->user()->id)
                     ->where('active_status', 0)
                     ->orderBy('id', 'desc')
@@ -172,8 +184,8 @@ class ResellerController extends Controller
                     $this->getNextTime($request->subscription_duration)
                 );
 
-                $subscrition = new Subscription();
-                $subscrition->product_plan_id = $request->product_plan_id;
+                $subscrition = new ResellerPlanSubscription();
+                $subscrition->reseller_plan_id = $request->plan;
                 $subscrition->reseller_id = $id;
                 $subscrition->next_due_date = $nextTime;
                 $subscrition->subscription_duration = $request->subscription_duration;
@@ -213,8 +225,7 @@ class ResellerController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'product' => ['required', 'string', 'max:255'],
-            'product_plan_id' => ['required', 'string', 'max:255'],
+            'plan_id' => ['required', 'string', 'max:255'],
             'subscription_duration' => ['required', 'string', 'max:255'],
         ]);
 
@@ -228,8 +239,8 @@ class ResellerController extends Controller
             try {
                 $nextTime =  $now->subDay(1);
 
-                $subscription = new Subscription();
-                $subscription->product_plan_id = $request->product_plan_id;
+                $subscription = new ResellerPlanSubscription();
+                $subscription->reseller_plan_id = $request->plan_id;
                 $subscription->reseller_id = $id;
                 $subscription->next_due_date = $nextTime;
                 $subscription->subscription_duration = $request->subscription_duration;
@@ -252,10 +263,11 @@ class ResellerController extends Controller
      */
     public function subscribeResellerEdit(int $id)
     {
-        $subscription = Subscription::with('reseller')->with('productplan')->findOrFail($id);
-        $productplan = ProductPlan::where("product_id", $subscription->productplan->product->id)->with('plan')->get();
+        $subscription = ResellerPlanSubscription::with('reseller')->with('resellerPlan')->findOrFail($id);
+        $resellerplan = ResellerPlan::all();
+        // $resellerplan = ResellerPlan::findOrFail($subscription->reseller_plan_id);
 
-        return view('reseller.subscriptions-edit', compact('subscription', 'productplan'));
+        return view('reseller.subscriptions-edit', compact('subscription', 'resellerplan'));
     }
 
     /**
@@ -267,9 +279,10 @@ class ResellerController extends Controller
         $this->authorize('update', new Subscription());
 
         try {
-            $subscription = Subscription::findOrFail($id);
+            $subscription = ResellerPlanSubscription::findOrFail($id);
 
             $subscription->subscription_duration = $request->subscription_duration;
+            $subscription->reseller_plan_id = $request->plan_id;
             $subscription->save();
 
             return redirect()->back()->with('message', 'Updated successfully');
@@ -298,11 +311,11 @@ class ResellerController extends Controller
 
     public function subscribeResellerHistoryList($id)
     {
-        $history = SubscriptionPaymentHistory::where('subscription_id', $id)->with('productplan')->with('reseller')->get();
+        $histories = ResellerPlanSubscriptionHistory::where('reseller_plan_sub_id', $id)->with('resellerplan')->with('reseller')->get();
 
-        $subscription = Subscription::findOrFail($id);
+        $subscription = ResellerPlanSubscription::findOrFail($id);
 
-        return view('reseller.subscription-payment-history', compact('history', 'subscription'));
+        return view('reseller.subscription-payment-history', compact('histories', 'subscription'));
     }
     /**
      * Store a newly created resource in storage.
@@ -324,17 +337,17 @@ class ResellerController extends Controller
 
             try {
 
-                $subscription = Subscription::findOrFail($subscription_id);
+                $subscription = ResellerPlanSubscription::findOrFail($subscription_id);
 
 
-                $subscription_history = new SubscriptionPaymentHistory();
+                $subscription_history = new ResellerPlanSubscriptionHistory();
 
                 //save current payment history
-                $subscription_history->product_plan_id = $subscription->product_plan_id;
+                $subscription_history->reseller_plan_id = $subscription->reseller_plan_id;
                 $subscription_history->reseller_id = $subscription->reseller_id;
-                $subscription_history->next_due_date_payment = $subscription->next_due_date;
+                $subscription_history->next_due_date = $subscription->next_due_date;
                 $subscription_history->subscription_duration = $subscription->subscription_duration;
-                $subscription_history->subscription_id = $subscription->id;
+                $subscription_history->reseller_plan_sub_id = $subscription->id;
                 $subscription_history->payment_status = 1;
                 $subscription_history->payment_type = $request->payment_option;
                 $newPayment = $subscription_history->save();
@@ -351,7 +364,7 @@ class ResellerController extends Controller
 
                 if (!$updated) {
                     //rollback if error
-                    SubscriptionPaymentHistory::find($newPayment)->delete();
+                    ResellerPlanSubscription::find($newPayment)->delete();
                 }
 
                 return redirect()->back()->with('message', 'Subscription payment successfully!');
@@ -376,6 +389,49 @@ class ResellerController extends Controller
             case $subscription_duration === 'anually':
                 return $now->addMonth(12)->timestamp;
                 break;
+        }
+    }
+
+
+    public function activateDeactivate(int $id, string $status)
+    {
+        // dd($id, $status);
+
+        $subscription = ResellerPlanSubscription::where('reseller_id', $id)->orderBy('id', 'DESC')->first();
+        if ($status === 'activate') {
+            if ($subscription) {
+
+                $subscription_history = new ResellerPlanSubscriptionHistory();
+
+                //save current payment history
+                $subscription_history->reseller_plan_id = $subscription->reseller_plan_id;
+                $subscription_history->reseller_id = $subscription->reseller_id;
+                $subscription_history->next_due_date = $subscription->next_due_date;
+                $subscription_history->subscription_duration = $subscription->subscription_duration;
+                $subscription_history->reseller_plan_sub_id = $subscription->id;
+                $subscription_history->payment_status = 1;
+                $subscription_history->payment_type = 'activated_by_admin';
+                $newPayment = $subscription_history->save();
+
+                $nextDuePayment = Carbon::createFromTimestamp(
+                    $this->getNextTimeOrigin($subscription->next_due_date, $subscription->subscription_duration)
+                );
+
+                $updated = $subscription->update(['next_due_date' => $nextDuePayment, 'active_status' => 1]);
+
+                return redirect()->back()->with('message', 'Account activated successfully!');
+            } else {
+                return redirect()->back()->with('error', 'No subscription entry found!');
+            }
+        } else {
+            if ($subscription) {
+
+                $subscription->update(['active_status' => 0]);
+
+                return redirect()->back()->with('message', 'Account deactivated successfully!');
+            } else {
+                return redirect()->back()->with('error', 'No subscription entry found!');
+            }
         }
     }
 }

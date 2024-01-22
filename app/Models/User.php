@@ -84,4 +84,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(CustomerAlert::class, 'reseller_id', 'id');
     }
+
+    public function subscription()
+    {
+        return $this->hasMany(ResellerPlanSubscription::class, 'reseller_id', 'id')->orderBy('id', 'desc');
+    }
 }

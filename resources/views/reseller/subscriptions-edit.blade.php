@@ -47,7 +47,7 @@
                             </div>
                             @endif
 
-                            <form method="POST" action="{{ route('subscription.update', ['id'=>$subscription->id]) }}">
+                            <form method="POST" action="{{ route('reseller.subscription.update', ['id'=>$subscription->id]) }}">
                                 @csrf()
                                 <div class="row">
                                     <div class="col-md-6">
@@ -68,9 +68,12 @@
 
                                         <div class="form-group">
                                             <label>Plan</label>
-                                            <select name="product_plan_id" id="product_plan_id" class="form-control select2  @error('product_plan_id') is-invalid @enderror" style="width: 100%" value="{{ old('product_plan_id')?? $subscription->productplan->plan->id }}" autocomplete="product_plan_id" autofocus>
-                                                @foreach($productplan as $productp)
-                                                <option value="{{$productp->id}}">{{$productp->plan->name}}</option>
+                                            <select name="plan_id" id="plan_id" class="form-control select2  @error('plan_id') is-invalid @enderror" style="width: 100%" value="{{ old('plan_id')?? $subscription->resellerplan->id }}" autocomplete="plan_id" autofocus>
+                                                @foreach($resellerplan as $productp)
+                                                <option value="">--choose--</option>
+                                                <option value="{{$productp->id}}" @if(old('plan_id', $subscription->resellerplan->id)==$productp->id) selected @endif>
+                                                    {{ $productp->name }}
+                                                </option>
                                                 @endforeach
                                             </select>
                                             @error('product_plan_id')

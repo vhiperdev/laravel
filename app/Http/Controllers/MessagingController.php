@@ -101,12 +101,13 @@ class MessagingController extends Controller
             if (!empty($request->message) && $request->message != '' && $request->message != '--select Message--') {
 
                 $message_template = MessageTemplate::findOrFail($request->message);
-                $processedText = $this->replacePlaceholders($customer, $message_template->content);
+                $processedText = $this->resellerReplacePlaceholders($customer, $message_template->content);
                 $data['message'] = $processedText;
+
                 $data['title'] =  $message_template->title;
             } elseif (!empty($request->content)) {
 
-                $processedText = $this->replacePlaceholders($customer, $request->content);
+                $processedText = $this->resellerReplacePlaceholders($customer, $request->content);
                 $data['message'] = $processedText;
             }
 
@@ -146,6 +147,8 @@ class MessagingController extends Controller
 
     public function sendAlert(string $id)
     {
+
+
         try {
             $bill = Billing::findOrFail($id);
 

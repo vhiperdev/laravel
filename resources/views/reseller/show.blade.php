@@ -35,10 +35,10 @@
                                         </div>
                                     </div>
                                     <div class='profile-item'>
-                                        <div class='customer_details_name'>User Name:</div>
+                                        <div class='customer_details_name'>Email:</div>
                                         <div class='customer_details_value'>
 
-                                            {{$reseller->username}}
+                                            {{$reseller->email}}
 
                                         </div>
                                     </div>
@@ -97,6 +97,36 @@
                                             Reseller
                                         </div>
                                     </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription plan:</div>
+                                        <div class='customer_details_value'>
+                                            @if($reseller->subscription)
+                                            {{$reseller->subscription[0]->resellerPlan->name}}
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription Next due date:</div>
+                                        <div class='customer_details_value'>
+                                            @if($reseller->subscription)
+                                            {{$reseller->subscription[0]->next_due_date}}
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class='profile-item'>
+                                        <div class='customer_details_name'>Subscription duration:</div>
+                                        <div class='customer_details_value'>
+                                            @if($reseller->subscription)
+                                            {{$reseller->subscription[0]->subscription_duration}}
+                                            @endif
+                                        </div>
+                                    </div>
+
+
                                     <br />
                                     <div class='profile-item'>
                                         <div class='customer_details_name'>Created At:</div>

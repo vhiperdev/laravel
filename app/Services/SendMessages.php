@@ -12,7 +12,7 @@ class SendMessages
         $client = new Client();
 
         try {
-            $response = $client->post(env('WHATSAPP_API_URI', 'http://178.128.115.23/whatsapp-app/send-message'), [
+            $response = $client->post(env('WHATSAPP_API_URI', 'http://topgestor.pro/whatsapp-app/send-message'), [
                 'headers' => [
                     'Content-Type' => 'application/json',
                 ],

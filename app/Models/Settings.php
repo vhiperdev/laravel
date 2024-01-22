@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Settings extends Model
 {
     use HasFactory;
-    protected $fillable = ['currency', 'default_payment_message'];
+    protected $fillable = ['currency', 'default_payment_message', 'mp_Access_token'];
 
     public function message_template()
     {

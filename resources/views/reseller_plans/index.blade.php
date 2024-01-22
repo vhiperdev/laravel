@@ -6,13 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Subscription Payment History</h1>
+                    <h1>All Reseller Plan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item">Subscription</li>
-                        <li class="breadcrumb-item active">Subscription details</li>
+                        <li class="breadcrumb-item active">All Plan</li>
                     </ol>
                 </div>
             </div>
@@ -27,14 +26,15 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h3 class="card-title">Subscriptions</h3>
+                                    <h3 class="card-title">Plans</h3>
                                 </div>
                                 <div class="col-md-6 text-end">
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Renew/Pay Subscription
+                                        Create New
                                     </button>
                                 </div>
                             </div>
+
                         </div>
 
                         <div class="card-body">
@@ -42,50 +42,42 @@
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th>Plan</th>
-                                            <th>Reseller</th>
-                                            <th>Subscription Due Date</th>
-                                            <th>Subscription Duration</th>
-                                            <th>Payment Status</th>
-                                            <th>Payment Gateway</th>
-                                            <th>Payment Type</th>
-                                            <th>Payment Reference</th>
-                                            <th>Payment Date</th>
+                                            <th>Name</th>
+                                            <th>Value</th>
+                                            <th>Created Time</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($histories as $history)
+
+                                        @foreach($plans as $plan)
                                         <tr>
-                                            <td>{{$history->resellerplan->name}}</td>
-                                            <td>{{$history->reseller->name}}</td>
-                                            <td>{{$history->next_due_date_payment}}</td>
-                                            <td>{{$history->subscription_duration}}</td>
-                                            <td>@if((int)$history->payment_status===1) <span class="text-success">Paid</span> @else <span class="text-danger">Unpaid</span> @endif</td>
-                                            <td>{{$history->payment_gateway}}</td>
-                                            <td>{{$history->payment_type}}</td>
-                                            <td>{{$history->payment_reference}}</td>
-                                            <td>{{$history->created_at}}</td>
+                                            <td>{{$plan->name}}</td>
+                                            <td>{{$settings->currencyDetails->symbol}}{{$plan->value}}</td>
+                                            <td>{{$plan->created_at}}</td>
+                                            <td>
+                                                <div class="dropdown">
+                                                    <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fas fa-ellipsis-v"></i>
+                                                    </button>
+
+                                                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                                        <a class="dropdown-item" href="{{route('reseller.plan.show', ['id'=>$plan->id])}}">View Plan</a>
+                                                        <a class="dropdown-item" href="{{route('reseller.plan.edit', ['id'=>$plan->id])}}">Edit Plan</a>
+                                                        <a class="dropdown-item text-danger" href="{{route('reseller.plan.destroy', ['id'=>$plan->id])}}" onclick="return confirm('Are you sure you want to delete this customer?')">Delete</a>
+                                                    </div>
+                                                </div>
+                                            </td>
                                         </tr>
                                         @endforeach
-
-                                        @if(COUNT($histories)==0)
-                                        <tr>
-                                            <td colspan="9" class="text-center">No history found</td>
-                                        </tr>
-                                        @endif
 
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th>Plan</th>
-                                            <th>Reseller</th>
-                                            <th>Subscription Due Date</th>
-                                            <th>Subscription Duration</th>
-                                            <th>Payment Status</th>
-                                            <th>Payment Gateway</th>
-                                            <th>Payment Type</th>
-                                            <th>Payment Reference</th>
-                                            <th>Payment Date</th>
+                                            <th>Name</th>
+                                            <th>Value</th>
+                                            <th>Created Time</th>
+                                            <th>Action</th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -93,14 +85,15 @@
                         </div>
 
 
+                        <!-- Modal -->
                         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Recurrent Subscription Payment</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Create New Plan</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
-                                    <form method="POST" action="{{ route('reseller.subscription.history', ['id'=> $subscription->id]) }}">
+                                    <form method="POST" action="{{ route('reseller.plans.store') }}">
                                         <div class="modal-body">
 
                                             @if ($errors->any())
@@ -115,24 +108,29 @@
 
                                             @csrf()
                                             <div class="form-group">
-                                                <label>Payment Option</label>
-                                                <select name="payment_option" class="form-control select2  @error('payment_option') is-invalid @enderror" style="width: 100%" value="{{ old('payment_option') }}" autocomplete="payment_option" autofocus>
-                                                    <option>--choose--</option>
-                                                    <option value="pos">POS</option>
-                                                    <option value="terminal">Terminal</option>
-                                                </select>
-                                                @error('payment_option')
+                                                <label>Name</label>
+                                                <input name="name" class="form-control select2  @error('name') is-invalid @enderror" style="width: 100%" value="{{ old('name') }}" autocomplete="name" autofocus>
+
+                                                @error('name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                                 @enderror
                                             </div>
+                                            <div class="form-group">
+                                                <label>Value</label>
+                                                <input name="value" class="form-control select2  @error('value') is-invalid @enderror" style="width: 100%" value="{{ old('value') }}" autocomplete="value" autofocus>
 
-
+                                                @error('value')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                                @enderror
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Pay</button>
+                                            <button type="submit" class="btn btn-primary">Create</button>
                                         </div>
 
                                     </form>
@@ -145,8 +143,6 @@
         </div>
     </section>
 </div>
-
-
 @push('scripts')
 <script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>

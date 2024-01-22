@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Currency;
 use App\Models\MessageTemplate;
 use App\Models\Settings;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class SettingsController extends Controller
 {
@@ -39,17 +43,50 @@ class SettingsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function profile()
     {
-        //
+        $profile = Auth::user();
+        return view('settings.profile', compact('profile'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        //
+    public function profileUpdate(Request $request)
+    {   
+         $user = User::findOrFail(auth()->user()->id);
+
+         if ($request->old_password && $request->old_password !== '' && $request->old_password !== null) {
+            $validator = Validator::make($request->all(), [
+                'old_password' => 'required|string|min:6',
+                'new_password' => 'required|string|min:6|different:old_password',
+                'confirm_password' => 'required|string|min:6|same:new_password',
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->with(['error' => $validator->errors()->first()]);
+            }
+
+           
+            if (!Hash::check($request->old_password, $user->password)) {
+                return redirect()->back()->with(['error' => 'The old password is incorrect.']);
+            }
+        }
+
+
+        try {  
+
+            if ($request->new_password) {
+                $user->password = Hash::make($request->new_password);
+            }
+
+            $user->name = $request->name;
+            $user->save();
+
+            return redirect()->back()->with('message', 'Profile updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**

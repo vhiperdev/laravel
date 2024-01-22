@@ -96,7 +96,7 @@
                         <img src="{{asset('/dist/img/avatar.png')}}" class="img-circle elevation-2" alt="User Image" />
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block d-link"> {{ Auth::user()->name }}</a>
+                        <a href="{{route('profile')}}" class="d-block d-link"> {{ Auth::user()->name }}</a>
                     </div>
                 </div>
 
@@ -138,6 +138,12 @@
                             <a href="{{route('plans')}}" class="nav-link {{ (\Request::route()->getName() == 'plans') ? 'active' : '' }}">
                                 <i class="fa fa-suitcase nav-icon"></i>
                                 <p>{{__('messages.plans')}}</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('reseller.plans')}}" class="nav-link {{ (\Request::route()->getName() == 'reseller.plans') ? 'active' : '' }}">
+                                <i class="fa fa-suitcase nav-icon"></i>
+                                <p>{{__('messages.resellerplans')}}</p>
                             </a>
                         </li>
 

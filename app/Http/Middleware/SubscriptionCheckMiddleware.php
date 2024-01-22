@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Plans;
 use App\Models\Products;
-use App\Models\Subscription;
+use App\Models\ResellerPlan;
+use App\Models\ResellerPlanSubscription;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 use Carbon\Carbon;
 
 
@@ -35,20 +34,18 @@ class SubscriptionCheckMiddleware
         if (Auth::check()) {
             if (!in_array($request->route()->getName(), $excludedRoutes) && Auth::user()->hasRole('reseller')) {
 
-                $subscription = Subscription::where('reseller_id', Auth::user()->id)->orderBy('id', 'desc')->first();
-                $plans = Plans::all();
+                $subscription = ResellerPlanSubscription::where('reseller_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+                $plans = ResellerPlan::all();
                 if (!$subscription) {
 
 
-                    $products = Products::all();
-
-                    $routeUrl = route('register.subscription.page', ['products' => $products]);
+                    $routeUrl = route('register.subscription.page');
 
                     // Return a response without redirecting 
-                    return response()->view('auth.subscription.newuser-subscription', compact('plans', "products")); //->header('Location', $routeUrl);
+                    return response()->view('auth.subscription.newuser-subscription', compact('plans'));
                 }
 
-                $subscriptionExpired = Subscription::where('reseller_id', Auth::user()->id)->where('active_status', 1)->orderBy('id', 'desc')->first();
+                $subscriptionExpired = ResellerPlanSubscription::where('reseller_id', Auth::user()->id)->where('active_status', 1)->orderBy('id', 'desc')->first();
 
                 if ($subscriptionExpired && $this->hasDateTimeElapsed($subscriptionExpired->next_due_date)) {
 

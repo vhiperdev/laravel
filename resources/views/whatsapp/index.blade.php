@@ -31,7 +31,15 @@
                             <a class="" href="{{route('whatsapp.scanned.status', ['id'=>$last_session->id])}}" onclick="return confirm('Are you sure you have scanned and authenticated your whatsapp?')"> <button class="btn btn-warning">I have scanned the code</button></a>
                         </div>
                         @else
-                        Whatsapp is authenticated
+                        <div style="height: 300px; display:flex; align-items:center; justify-content: center">
+                            <div class="d-block text-center">
+                                <div class="text-center">Whatsapp is authenticated</div>
+                                <button class="btn btn-primary text-dark fw-bolder" id="disconnect-whatsapp-btn" onclick="disconnect()">
+                                    Disconnect Whatsapp
+                                    <span id="loader-disconnect" class="spinner-border spinner-border-sm"></span>
+                                </button>
+                            </div>
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -87,11 +95,49 @@
 
     const loader = document.getElementById("loader");
     const loader_done = document.getElementById("loader-done");
+    const disconnect_whatsapp_btn = document.getElementById("disconnect-whatsapp-btn");
 
     async function fetchPlans() {
         loader.style.display = "block";
+        disconnect_whatsapp_btn.style.display = "none";
 
-        const response = await axios.post("http://localhost:3000/authenticate", {
+        const response = await axios.post("<?php echo env('WHATSAPP_API_URI_AUTH'); ?>", {
+            userId: <?php echo auth()->user()->id; ?>
+        }).then((response) => {
+            // Handle the response data
+            console.log("response", response);
+
+            disconnect_whatsapp_btn.style.display = "block";
+            if (response.data.qrCode) {
+
+                axios.post('/api/whatsapp/save', {
+                    qr_code: response.data.qrCode,
+                    user_id: '<?php echo auth()->user()->id; ?>'
+                }).then(() => {
+                    window.location.reload();
+                })
+            } else {
+                loader.style.display = "none";
+                disconnect_whatsapp_btn.style.display = "block";
+            }
+
+        }, (error) => {
+            // Handle errors
+            loader.style.display = "none";
+            disconnect_whatsapp_btn.style.display = "block";
+            console.error('Error during Axios request:', error.message);
+        });
+    }
+
+
+    const loaderDist = document.getElementById("loader-disconnect");
+    loaderDist.style.display = "none";
+
+    async function disconnect() {
+
+        loaderDist.style.display = "block";
+
+        const response = await axios.post("<?php echo env('WHATSAPP_API_URI_DISCONNECT'); ?>", {
             userId: <?php echo auth()->user()->id; ?>
         }).then((response) => {
             // Handle the response data
@@ -105,15 +151,20 @@
                     window.location.reload();
                 })
             } else {
-                loader.style.display = "none";
-                // loader_done.style.display = "block";
+                loaderDist.style.display = "none";
             }
-
         }, (error) => {
             // Handle errors
-            loader.style.display = "none";
+            loaderDist.style.display = "none";
+            swal({
+                title: "Oops!",
+                text: error.message,
+                icon: "warning",
+                button: "Close",
+                className: "custom-button-warning" // Add a custom class to the modal container
+            });
             console.error('Error during Axios request:', error.message);
-        });
+        })
     }
 </script>
 

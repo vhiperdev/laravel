@@ -39,7 +39,7 @@
                                     <thead>
                                         <tr class="border-bottom">
                                             <th>Name</th>
-                                            <th>Username</th>
+                                            <th>Email</th>
                                             <th>Whatsapp Number</th>
                                             <th>Expiry Date</th>
                                             <th>Role</th>
@@ -51,10 +51,10 @@
                                         @foreach($resellers as $resell)
                                         <tr class="border-0">
                                             <td>{{$resell->user->name}}</td>
-                                            <td>{{$resell->user->username}}</td>
+                                            <td>{{$resell->user->email}}</td>
                                             <td>{{$resell->user->whatsapp}}</td>
                                             <td>{{$resell->user->expiry_date}}</td>
-                                            <td>{{$resell->role->name}}</td>
+                                            <td>{{$resell->role->name}} {{$resell->user->id}}</td>
                                             <td>
                                                 <a href="{{route('reseller.show', ['id'=>$resell->user->id])}}" title="View details"><button class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button></a>
                                                 <a href="{{route('reseller.edit', ['id'=>$resell->user->id])}}" title="Edit details"> <button class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button></a>
@@ -62,6 +62,8 @@
                                                 <a href="{{route('reseller.customers', ['id'=>$resell->user->id])}}" title="Reseller Customer"><button class="btn btn-dark btn-sm"><i class="fa fa-users"></i></button></a>
                                                 <button title="Alert Reseller" class="btn btn-secondary btn-sm alert-button" data-bs-toggle="modal" data-bs-target="#alertModal" data-item-id="{{$resell->user->id}}" data-item-name="{{$resell->name}}"><i class="fa fa-comment"></i></button>
                                                 <a title="Reseller Subscription" href="{{route('reseller.subscriptions', ['id'=>$resell->user->id])}}"><button class="btn btn-primary btn-sm"><i class="fa fa-briefcase"></i></button></a>
+                                                @if($resell->isActive == 0)<a title="Activate Reseller Account" href="{{route('reseller.activateDeactivate', ['id'=>$resell->user->id, 'status'=>'activate'])}}"><button class="btn btn-success btn-sm"><i class="fa fa-check"></i></button></a>@endif
+                                                @if($resell->isActive == 1)<a title="Deactivate Reseller Account" href="{{route('reseller.activateDeactivate', ['id'=>$resell->user->id, 'status'=>'deactivate'])}}"><button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button></a>@endif
 
                                             </td>
                                         </tr>

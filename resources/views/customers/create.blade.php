@@ -21,7 +21,6 @@
     <section class="content">
         <div class="container-fluid">
 
-
             <div class="row">
                 <div class="col-12">
                     <div class="card-body">
@@ -31,6 +30,14 @@
                                     <div class="card-header">
                                         <h3 class="card-title">Fill the form to create a customer</h3>
                                         <div class="card-tools">
+                                            <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                Bulk upload <i class="fa fa-upload"></i>
+                                            </button>
+                                            <a href="{{asset('customer_template.csv')}}" download="customer_template.csv">
+                                                <button type="button" class="btn btn-info">
+                                                    Download bulk template <i class="fa fa-download"></i>
+                                                </button>
+                                            </a>
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                                 <i class="fas fa-minus"></i>
                                             </button>
@@ -110,6 +117,17 @@
                                                         </select>
 
                                                         @error('device_id')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label>Password</label>
+                                                        <input name="password" class="form-control select2  @error('password') is-invalid @enderror" style="width: 100%" value="{{ old('password') }}" autocomplete="password" autofocus required>
+
+                                                        @error('password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
@@ -202,5 +220,49 @@
                 </div>
             </div>
     </section>
+
+
+    >
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Bulk upload customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('customer.bulkupload') }}" enctype="multipart/form-data">
+                    <div class="modal-body">
+
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                        @endif
+
+                        @csrf()
+                        <div class="form-group">
+                            <label>Upload .csv file</label>
+                            <input name="customer_file" type="file" accept=".csv" class="form-control select2  @error('customer_file') is-invalid @enderror" style="width: 100%" autofocus>
+
+                            @error('customer_file')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

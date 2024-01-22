@@ -9,7 +9,7 @@ class Customers extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['expiry_date'];
+    protected $fillable = ['expiry_date', 'password'];
 
     public function get_application()
     {

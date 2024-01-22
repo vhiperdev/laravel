@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ResellerPlanSubscription;
+use App\Models\ResellerPlanSubscriptionHistory;
 use App\Models\Subscription;
 use App\Models\SubscriptionPaymentHistory;
 use Carbon\Carbon;
@@ -22,9 +24,9 @@ class PaymentController extends Controller
         try {
             $user = Auth::user();
 
-            $subscribers = Subscription::where('reseller_id', $user->id)->with('productplan')->first();
+            $subscribers = ResellerPlanSubscription::where('reseller_id', $user->id)->with('resellerPlan')->first();
 
-            $plan = $subscribers->productplan->plan;
+            $plan = $subscribers->resellerPlan;
             $logo = asset('/dist/img/AdminLTELogo.png');
 
             $payer = new Payer(
@@ -82,24 +84,25 @@ class PaymentController extends Controller
 
         if ($collection_status == "success") {
             try {
-                $subscription = Subscription::where('reseller_id', Auth::user()->id)->orderBy('id', 'desc')->first();
+                $subscription = ResellerPlanSubscription::where('reseller_id', Auth::user()->id)->orderBy('id', 'desc')->first();
                 $currentDateTime = Carbon::now();
                 $subscription->update(['active_status' => 1, 'next_due_date' => $currentDateTime]);
 
 
-                $subscription_history = new SubscriptionPaymentHistory();
+                $subscription_history = new ResellerPlanSubscriptionHistory();
 
                 //save current payment history
-                $subscription_history->product_plan_id = $subscription->product_plan_id;
+                $subscription_history->reseller_plan_id = $subscription->reseller_plan_id;
                 $subscription_history->reseller_id = $subscription->reseller_id;
-                $subscription_history->next_due_date_payment = $subscription->next_due_date;
+                $subscription_history->next_due_date = $subscription->next_due_date;
                 $subscription_history->subscription_duration = $subscription->subscription_duration;
-                $subscription_history->subscription_id = $subscription->id;
+                $subscription_history->reseller_plan_sub_id = $subscription->id;
                 $subscription_history->payment_status = 1;
                 $subscription_history->payment_type = 'terminal';
                 $subscription_history->payment_reference = $preference_id;
                 $subscription_history->payment_gateway = 'Mercadopago';
                 $subscription_history->save();
+
 
                 return redirect('home')->with(['success' => "Your subscription has been renewed successfully"]);
             } catch (\Exception $e) {

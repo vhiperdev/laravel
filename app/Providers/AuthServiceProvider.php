@@ -9,6 +9,7 @@ use App\Models\Customers;
 use App\Models\MessageTemplate;
 use App\Models\Plans;
 use App\Models\Products;
+use App\Models\ResellerPlan;
 use App\Models\User;
 use App\Policies\BillingPolicy;
 use App\Policies\UserPolicy;
@@ -16,6 +17,7 @@ use App\Policies\CustomerPolicy;
 use App\Policies\MessageTemplatePolicy;
 use App\Policies\PlansPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\ResellerPlansPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -32,6 +34,8 @@ class AuthServiceProvider extends ServiceProvider
         Products::class => ProductPolicy::class,
         MessageTemplate::class => MessageTemplatePolicy::class,
         Billing::class => BillingPolicy::class,
+        ResellerPlan::class => ResellerPlansPolicy::class,
+
     ];
 
     /**

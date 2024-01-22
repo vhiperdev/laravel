@@ -44,8 +44,8 @@
                                         <th>Reseller</th>
                                         <th>Next Due Date</th>
                                         <th>Subscription Duration</th>
-                                        <th>Date Subscribed</th>
                                         <th>Status</th>
+                                        <th>Date Subscribed</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -53,7 +53,7 @@
 
                                     @foreach($subscriptions as $subscription)
                                     <tr>
-                                        <td>{{$subscription->productplan->plan->name}}</td>
+                                        <td>{{$subscription->resellerPlan->name}}</td>
                                         <td>{{$subscription->reseller->name}}</td>
                                         <td>{{$subscription->next_due_date}}</td>
                                         <td>{{$subscription->subscription_duration}}</td>
@@ -83,8 +83,8 @@
                                         <th>Reseller</th>
                                         <th>Next Due Date</th>
                                         <th>Subscription Duration</th>
-                                        <th>Date Subscribed</th>
                                         <th>Status</th>
+                                        <th>Date Subscribed</th>
                                         <th>Action</th>
                                     </tr>
                                 </tfoot>
@@ -114,14 +114,14 @@
 
                                             @csrf()
                                             <div class="form-group">
-                                                <label>Product</label>
-                                                <select name="product" id="product" class="form-control select2  @error('product') is-invalid @enderror" style="width: 100%" value="{{ old('product') }}" autocomplete="name" autofocus onchange="fetchPlans()">
+                                                <label>Plan</label>
+                                                <select name="plan" id="plan" class="form-control select2  @error('plan') is-invalid @enderror" style="width: 100%" value="{{ old('plan') }}" autocomplete="plan" autofocus>
                                                     <option>--choose--</option>
-                                                    @foreach($products as $product)
-                                                    <option value="{{$product->id}}"> {{$product->name}}</option>
+                                                    @foreach($resellerPlan as $plan)
+                                                    <option value="{{$plan->id}}"> {{$plan->name}}</option>
                                                     @endforeach
                                                 </select>
-                                                @error('product')
+                                                @error('plan')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -129,17 +129,6 @@
                                             </div>
 
 
-
-                                            <div class="form-group">
-                                                <label>Plan</label>
-                                                <select name="product_plan_id" id="product_plan_id" class="form-control select2  @error('product_plan_id') is-invalid @enderror" style="width: 100%" value="{{ old('product_plan_id') }}" autocomplete="product_plan_id" autofocus>
-                                                </select>
-                                                @error('product_plan_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
 
                                             <div class="form-group">
                                                 <label>Duration</label>

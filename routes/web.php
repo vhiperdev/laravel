@@ -57,6 +57,8 @@ Route::get('customers/create', [App\Http\Controllers\CustomerController::class, 
 Route::post('customer/store', [App\Http\Controllers\CustomerController::class, 'store'])->name('customers.store');
 Route::get('customer/destroy/{id}', [App\Http\Controllers\CustomerController::class, 'destroy'])->name('customers.destroy');
 Route::get('customer/subscription/{id}', [App\Http\Controllers\CustomerController::class, 'subscriptions'])->name('customers.subscriptions');
+Route::post('customer/bulkupload', [App\Http\Controllers\CustomerController::class, 'bulkupload'])->name('customer.bulkupload');
+
 
 //Billing
 Route::get('billing/configure', [App\Http\Controllers\BillingController::class, 'index'])->name('billing.configure');
@@ -133,12 +135,27 @@ Route::post('payment/createPayment', [App\Http\Controllers\PaymentController::cl
 Route::get('payment/callback/{status}', [App\Http\Controllers\PaymentController::class, 'callback'])->name('payment.callback');
 
 
+//Reseller
+Route::post('reseller/subscription/history/store/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerHistory'])->name('reseller.subscription.history');
+
+//profile
+Route::get('profile', [App\Http\Controllers\SettingsController::class, 'profile'])->name('profile');
+Route::post('profile', [App\Http\Controllers\SettingsController::class, 'profileUpdate'])->name('profile');
+
+
 // admin routes or controllers 
 Route::group(['middleware' => 'role:admin'], function () {
 
     // Plans 
     Route::get('plan/destroy/{id}', [App\Http\Controllers\PlansController::class, 'destroy'])->name('plan.destroy');
 
+    // Reseller Plans
+    Route::get('reseller_plans', [App\Http\Controllers\ResellerPlanController::class, 'index'])->name('reseller.plans');
+    Route::get('reseller_plan/{id}', [App\Http\Controllers\ResellerPlanController::class, 'show'])->name('reseller.plan.show');
+    Route::get('reseller_plan/edit/{id}', [App\Http\Controllers\ResellerPlanController::class, 'edit'])->name('reseller.plan.edit');
+    Route::post('reseller_plan/update/{id}', [App\Http\Controllers\ResellerPlanController::class, 'update'])->name('reseller.plan.update');
+    Route::post('reseller_plan/store', [App\Http\Controllers\ResellerPlanController::class, 'store'])->name('reseller.plans.store');
+    Route::get('reseller_plan/destroy/{id}', [App\Http\Controllers\ResellerPlanController::class, 'destroy'])->name('reseller.plan.destroy');
 
 
 
@@ -188,19 +205,10 @@ Route::group(['middleware' => 'role:admin'], function () {
     Route::post('reseller/subscriptions/update/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerUpdate'])->name('reseller.subscription.update');
     Route::get('reseller/subscriptions/disable/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerDisable'])->name('reseller.subscription.disable');
     Route::get('reseller/subscription/history/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerHistoryList'])->name('reseller.subscription.history.list');
-    Route::post('reseller/subscription/history/store/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerHistory'])->name('reseller.subscription.history');
+    Route::get('reseller/activateDeactivate/{id}/{status}', [App\Http\Controllers\ResellerController::class, 'activateDeactivate'])->name('reseller.activateDeactivate');
 
 
     Route::get('reseller/customer/{id}', [App\Http\Controllers\ResellerController::class, 'getMyCustomer'])->name('reseller.customers');
 
     Route::post('messaging/alert/reseller', [App\Http\Controllers\MessagingController::class, 'alertReseller'])->name('messaging.alert.reseller');
-});
-
-
-/**  
- * RESELLER ROUTES
- * */
-Route::group(['middleware' => 'role:reseller'], function () {
-    // Reseller routes or controllers
-    Route::post('reseller/subscription/history/store/{id}', [App\Http\Controllers\ResellerController::class, 'subscribeResellerHistory'])->name('reseller.subscription.history');
 });

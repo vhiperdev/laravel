@@ -65,10 +65,15 @@ class BillingMessengerService
     // TESTED
     protected function handleActiveCustomers($bill)
     {
-        $customers = Customers::where('server', $bill->server)
-            ->orWhere('application_id', $bill->application_id)
-            ->orWhere('device_id', $bill->device_id)
-            ->get();
+        $customers = Customers::when($bill->server, function ($query) use ($bill) {
+            $query->orWhere('server', $bill->server);
+        })
+            ->when($bill->application_id, function ($query) use ($bill) {
+                $query->orWhere('application_id', $bill->application_id);
+            })
+            ->when($bill->device_id, function ($query) use ($bill) {
+                $query->orWhere('device_id', $bill->device_id);
+            })->get();
 
         $subscription = [];
         $customerIds = [];
@@ -95,7 +100,7 @@ class BillingMessengerService
             }
         }
 
-        $this->initMessage("ALL ACTIVE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id);
+        $this->initMessage("ALL ACTIVE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id, $bill->created_by);
     }
 
 
@@ -103,11 +108,18 @@ class BillingMessengerService
     // TESTED
     protected function handleAllCustomers($bill)
     {
-        $customer_list = Customers::where(function ($query) use ($bill) {
-            $query->where('server', $bill->server)
-                ->orWhere('application_id', $bill->application_id)
-                ->orWhere('device_id', $bill->device_id);
-        });
+
+        $customer_list = Customers::when($bill->server, function ($query) use ($bill) {
+            $query->orWhere('server', $bill->server);
+        })
+            ->when($bill->application_id, function ($query) use ($bill) {
+                $query->orWhere('application_id', $bill->application_id);
+            })
+            ->when($bill->device_id, function ($query) use ($bill) {
+                $query->orWhere('device_id', $bill->device_id);
+            });
+
+
 
         if ($bill->days_to_expire > 0) {
             $thresholdDate = Carbon::now()->subDays($bill->days_to_expire);
@@ -119,7 +131,7 @@ class BillingMessengerService
 
         $customerIds = $customers;
 
-        $this->initMessage("ALL CUSTOMERS", $number_of_customers, $bill->default_message, $customerIds, $bill->id);
+        $this->initMessage("ALL CUSTOMERS", $number_of_customers, $bill->default_message, $customerIds, $bill->id, $bill->created_by);
     }
 
 
@@ -127,10 +139,16 @@ class BillingMessengerService
     // TESTED
     protected function handleInactiveCustomers($bill)
     {
-        $customers = Customers::where('server', $bill->server)
-            ->orWhere('application_id', $bill->application_id)
-            ->orWhere('device_id', $bill->device_id)
-            ->get();
+
+        $customers = Customers::when($bill->server, function ($query) use ($bill) {
+            $query->orWhere('server', $bill->server);
+        })
+            ->when($bill->application_id, function ($query) use ($bill) {
+                $query->orWhere('application_id', $bill->application_id);
+            })
+            ->when($bill->device_id, function ($query) use ($bill) {
+                $query->orWhere('device_id', $bill->device_id);
+            })->get();
 
         $subscription = [];
         $customerIds = [];
@@ -148,17 +166,23 @@ class BillingMessengerService
             }
         }
 
-        $this->initMessage("ALL INACTIVE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id);
+        $this->initMessage("ALL INACTIVE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id, $bill->created_by);
     }
 
 
     //TESTED
     protected function handleAlreadyDueCustomers($bill)
     {
-        $customers = Customers::where('server', $bill->server)
-            ->orWhere('application_id', $bill->application_id)
-            ->orWhere('device_id', $bill->device_id)
-            ->get();
+
+        $customers = Customers::when($bill->server, function ($query) use ($bill) {
+            $query->orWhere('server', $bill->server);
+        })
+            ->when($bill->application_id, function ($query) use ($bill) {
+                $query->orWhere('application_id', $bill->application_id);
+            })
+            ->when($bill->device_id, function ($query) use ($bill) {
+                $query->orWhere('device_id', $bill->device_id);
+            })->get();
 
         $subscription = [];
         $customerIds = [];
@@ -186,16 +210,22 @@ class BillingMessengerService
         }
 
 
-        $this->initMessage("ALL ALREADY DUE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id);
+        $this->initMessage("ALL ALREADY DUE CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id, $bill->created_by);
     }
 
     //TESTED
     protected function handleDueTodayCustomers($bill)
     {
-        $customers = Customers::where('server', $bill->server)
-            ->orWhere('application_id', $bill->application_id)
-            ->orWhere('device_id', $bill->device_id)
-            ->get();
+        $customers = Customers::when($bill->server, function ($query) use ($bill) {
+            $query->orWhere('server', $bill->server);
+        })
+            ->when($bill->application_id, function ($query) use ($bill) {
+                $query->orWhere('application_id', $bill->application_id);
+            })
+            ->when($bill->device_id, function ($query) use ($bill) {
+                $query->orWhere('device_id', $bill->device_id);
+            })->get();
+
 
         $subscription = [];
         $customerIds = [];
@@ -215,11 +245,11 @@ class BillingMessengerService
             }
         }
 
-        $this->initMessage("ALL DUE TODAY CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id);
+        $this->initMessage("ALL DUE TODAY CUSTOMERS", count($subscription), $bill->default_message, $customerIds, $bill->id, $bill->created_by);
     }
 
 
-    protected function initMessage($title, $count, $message, $customers, $billId)
+    protected function initMessage($title, $count, $message, $customers, $billId, $sender_id)
     {
         echo "_______________________________________<br>" . PHP_EOL;
         echo "$title<br>" . PHP_EOL;
@@ -228,8 +258,6 @@ class BillingMessengerService
         echo "Message: " . $message . PHP_EOL;
         echo "Bill ID: " . $billId . PHP_EOL;
 
-
-        $sender_id = Auth::user()->id;
 
         if (count($customers) > 0) {
             $customer_received_count = 0;

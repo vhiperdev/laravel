@@ -64,14 +64,15 @@ class CustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
-            'whatsapp' => ['required', 'string', 'max:255'],
-            'screen' => ['string', 'max:255'],
-            'device_id' => ['string', 'max:255'],
-            'expiry_date' => ['string', 'max:255'],
-            'application_id' => ['string', 'max:255'],
-            'server' => ['string', 'max:255'],
-            'mac' => ['string', 'max:255'],
-            'key' => ['string', 'max:255'],
+            'whatsapp' => ['required', 'string', 'regex:/^\+\d{1,4}\d{8,}$/', 'max:255'],
+            'screen' => ['nullable', 'max:255'],
+            'device_id' => ['nullable', 'max:255'],
+            'expiry_date' => ['nullable', 'max:255'],
+            'application_id' => ['nullable', 'max:255'],
+            'server' => ['nullable', 'max:255'],
+            'mac' => ['nullable', 'max:255'],
+            'key' => ['nullable', 'max:255'],
+            'password' => ['string', 'max:255'],
         ]);
 
         if ($validator->fails()) {
@@ -90,6 +91,7 @@ class CustomerController extends Controller
                 $customer->server = $request->get('server');
                 $customer->mac = $request->mac;
                 $customer->key = $request->key;
+                $customer->password = $request->password;
                 $customer->created_by = auth()->user()->id;
                 // dd($customer);
                 $customer->save();
@@ -152,6 +154,7 @@ class CustomerController extends Controller
             $customer->device_id = $request->device_id;
             $customer->mac = $request->mac;
             $customer->key = $request->key;
+            $customer->password = $request->password;
             $customer->created_by = auth()->user()->id;
             $customer->save();
 
@@ -188,5 +191,90 @@ class CustomerController extends Controller
         $customer = Customers::findOrFail($customer_id);
 
         return view('customers.subscription', compact('subscriptions', 'products', 'customer'));
+    }
+
+    public function bulkupload(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'customer_file' => ['required', 'mimetypes:csv,text/plain,text/csv', 'max:6048']
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with(['error' => $validator->errors()->first()]);
+        }
+
+        $file = $request->file('customer_file');
+        $path = $file->path();
+
+        // Read the CSV file
+        $customers = array_map('str_getcsv', file($path));
+
+        // Get the header fields
+        $headers = array_shift($customers);
+
+
+        // name	username whatsapp	screen	server_name	application_name	device_name	mac	key	password
+        // Validate and create customers
+        foreach ($customers as $customer) {
+            $customerData = array_combine($headers, $customer);
+
+            $validator = Validator::make($customerData, [
+                'name' => ['required'],
+                'username' => ['nullable'],
+                'whatsapp' => ['required', 'string', 'max:255', 'regex:/^\+\d{1,4}\d{8,}$/'],
+                'screen' => ['nullable'],
+                'server_name' => ['nullable'],
+                'application_name' => ['nullable'],
+                'device_name' => ['nullable'],
+                'mac' => ['nullable'],
+                'key' => ['nullable'],
+                'password' => ['required', 'min:6'],
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->with(['error' => $validator->errors()->first()]);
+            }
+        }
+
+        // dd($customers);
+        $lastIndex = key(array_slice($customers, -1, 1, true));
+
+        foreach ($customers as $index => $customerData) {
+            $customer = array_combine($headers, $customerData);
+
+
+            try {
+                $customerObj = new Customers();
+                $customerObj->name = $customer['name'];
+                $customerObj->username = $customer['username'];
+                $customerObj->whatsapp = $customer['whatsapp'];
+                $customerObj->screen = $customer['screen'];
+
+                if ($customer['application_name']) {
+                    $customerObj->application_id  = Application::Where('name', $customer['application_name'])->pluck('id')->first() ?? '';
+                }
+
+                if ($customer['server_name']) {
+                    $customerObj->server = Server::Where('name', $customer['server_name'])->pluck('id')->first() ?? '';
+                }
+
+
+                if ($customer['device_name']) {
+                    $customerObj->device_id = Device::Where('name', $customer['device_name'])->pluck('id')->first() ?? '';
+                }
+
+                $customerObj->mac = $customer['mac'];
+                $customerObj->key = $customer['key'];
+                $customerObj->password = $customer['password'];
+                $customerObj->created_by = auth()->user()->id;
+                $customerObj->save();
+
+                if ($index === $lastIndex) {
+                    return redirect()->back()->with('message', 'Uploaded successfully');
+                }
+            } catch (\Exception $e) {
+                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            }
+        }
     }
 }

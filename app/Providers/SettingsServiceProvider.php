@@ -25,6 +25,10 @@ class SettingsServiceProvider extends ServiceProvider
             // Fetch settings from the database
             $settings = Settings::first();
 
+            //SET Mecado pago gateway token to the config file  
+            config(['mercadopago.access_token' => $settings->mp_access_token]);
+            config(['app.timezone' => $settings->timezone]);
+
             // Share settings with all views
             view()->share('settings', $settings);
         }

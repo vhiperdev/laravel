@@ -47,7 +47,7 @@
                                         <td>{{$customer->username}}</td>
                                         <td>{{$customer->whatsapp}}</td>
                                         <td>{{$customer->screen}}</td>
-                                        <td>{{$customer->get_application->name}}</td>
+                                        <td>@if($customer->get_application){{$customer->get_application->name}}@endif</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
