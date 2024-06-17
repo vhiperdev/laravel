@@ -1,0 +1,1000 @@
+  912  rm laravel.log
+  913  nano laravel.log
+  914  cd ..
+  915  cd app
+  916  ls
+  917  cd Services
+  918  ls
+  919  nano SendMessages.php
+  920  cd ..
+  921  nano .env
+  922  php artisan config:clear
+  923  cd storage
+  924  cd logs
+  925  nano laravel.log
+  926  mysql
+  927  rm laravel.log
+  928  ls
+  929  nano laravel.log
+  930  ls
+  931  nano laravel.log
+  932  [A
+  933  nano laravel.log
+  934  cd ..
+  935  cd app
+  936  cd Service
+  937  cd Services
+  938  ls
+  939  nano SendMessages.php
+  940  cd ..
+  941  cd storage/logs
+  942  nano laravel.log
+  943  pm2 restart 1
+  944  pm2 logs
+  945  cd /var/www/html/node-app
+  946  ls
+  947  cd whatsapp-app
+  948  ls
+  949  rm -r .wwebjs_auth
+  950  rm -r .wwebjs_cache
+  951  pm2 logs
+  952  pm2 restart 1
+  953  pm2 logs
+  954  ls
+  955  ls -a
+  956  rm -r .wwebjs_auth
+  957  rm -r .wwebjs_cache
+  958  ls
+  959  ls -a
+  960  pm2 restart 1
+  961  pm2 logs
+  962  cd /var/www/html/laravel
+  963  ls
+  964  php artisan migrate
+  965  php artisan routes:clear
+  966  php artisan route:clear
+  967  php artisan config:clear
+  968  php artisan view:clear
+  969  ls
+  970  cd storage
+  971  cd logs
+  972  ls
+  973  rm laravel.log
+  974  ls
+  975  rm laravel.log
+  976  ls
+  977  ls
+  978  cd /var/www/html/laravel
+  979  chmod -R 775 storage
+  980  chown -R www-data:www-data storage
+  981  cd /storage/
+  982  cd storage
+  983  ls
+  984  cd logs
+  985  ls
+  986  nano worker.log
+  987  nano laravel.log
+  988  ls
+  989  HISTORY
+  990  history
+  991  pm2 list
+  992  cd /var/www
+  993  ls
+  994  cd html
+  995  ls
+  996  cp -R laravel /home
+  997  cp -R node-app /home
+  998  cd /home
+  999  ls
+ 1000  cd laravel
+ 1001  ls
+ 1002  git add *
+ 1003  gi commit -m "update"
+ 1004  git commit -m "update"
+ 1005  git push origin main
+ 1006  cd
+ 1007  ls
+ 1008  cd
+ 1009  ls
+ 1010  cd
+ 1011  ls
+ 1012  cd
+ 1013  ls
+ 1014  l
+ 1015  s
+ 1016  ls
+ 1017  l
+ 1018  ls
+ 1019  cd /var/www/html
+ 1020  ls
+ 1021  cd node-app
+ 1022  ls
+ 1023  cd  whatsapp-app
+ 1024  ls
+ 1025  npm i
+ 1026  ls -a
+ 1027  rm .wwebjs_auth  .wwebjs_cache 
+ 1028  rm -r .wwebjs_auth  .wwebjs_cache 
+ 1029  ls
+ 1030  ls -a
+ 1031  pm2 logs
+ 1032  pm2 restart 1
+ 1033  cd /var/www/html/laravel
+ 1034  nano .env
+ 1035  cd resources
+ 1036  ls
+ 1037  cd views
+ 1038  ls
+ 1039  cd whatsapp
+ 1040  ls
+ 1041  nano index.blade.php
+ 1042  php artisan config:clear
+ 1043  cd /var/www/html/laravel
+ 1044  php artisan config:clear
+ 1045  php artisan cache:clear
+ 1046  php artisan route:clear
+ 1047  php artisan view:clear
+ 1048  pm2 restart 1
+ 1049  cd /var/www/html/node-app/
+ 1050  ls
+ 1051  cd  whatsapp-app
+ 1052  ls
+ 1053  ls -a
+ 1054  rm -r .wwebjs_auth  .wwebjs_cache
+ 1055  ls
+ 1056  cd qrcodes
+ 1057  ls
+ 1058  rm 1_qrcode.png
+ 1059  ls
+ 1060  cd ..
+ 1061  ls
+ 1062  pm2 restart 1
+ 1063  cd /var/www/html
+ 1064  cs laravel
+ 1065  cd laravel
+ 1066  ls
+ 1067  cd resources
+ 1068  ls
+ 1069  cd views
+ 1070  ls
+ 1071  cd whatsapp
+ 1072  ls
+ 1073  nano index.blade.php
+ 1074  cd /var/www/html/laravel
+ 1075  php artisan migrate
+ 1076  mysql
+ 1077  cd /var/www/html/node-app
+ 1078  ls
+ 1079  cd whatsapp-app
+ 1080  ls
+ 1081  ls -a
+ 1082  cs .wwebjs_auth
+ 1083  cd .wwebjs_auth
+ 1084  ls
+ 1085  mysql 
+ 1086  history
+ 1087  pm2 list
+ 1088  pm2 logs
+ 1089  pm2 list
+ 1090  pm2 restart 1
+ 1091  pm2 logs
+ 1092  cd /var/www/html/laravel
+ 1093  ls
+ 1094  php artisan config:clear
+ 1095  php artisan cache:clear
+ 1096  php artisan route:clear
+ 1097  php artisan view:clear
+ 1098  cd database
+ 1099  ls
+ 1100  cd seeders
+ 1101  ls
+ 1102  php artisan db:seeder MessageTagUpdateSeeder.php
+ 1103  cd /
+ 1104  cd /var/www/html/laravel
+ 1105  php artisan db:seeder MessageTagUpdateSeeder.php
+ 1106  php artisan db:seed MessageTagUpdateSeeder.php
+ 1107  php artisan db:seed MessageTagUpdateSeeder
+ 1108  php artisan migrate
+ 1109  cd ..
+ 1110  ls
+ 1111  cd node-app
+ 1112  ls
+ 1113  cd whatsapp-app
+ 1114  ls
+ 1115  npm i
+ 1116  ls -a
+ 1117  rm -r  .wwebjs_auth
+ 1118  rm -r  .wwebjs_cache
+ 1119  ls -a
+ 1120  pm2 
+ 1121  pm2 logs
+ 1122  pm2 stop 2
+ 1123  pm2 stop 1
+ 1124  pm2 start 1
+ 1125  ls
+ 1126  pm2 logs
+ 1127  cd /var/www/html
+ 1128  ls
+ 1129  cd laravel
+ 1130  ls
+ 1131  cd ..
+ 1132  cd node-app
+ 1133  cd whatsapp-app
+ 1134  lss
+ 1135  ls
+ 1136  nano index.js
+ 1137  pm2 stop 1
+ 1138  pm2 start 1
+ 1139  ls -a
+ 1140  rm -r .wwebjs_auth  .wwebjs_cache
+ 1141  ls
+ 1142  ls -a
+ 1143  cd qrcodes
+ 1144  ls
+ 1145  rm 1_qrcode.png  2_qrcode.png  6_qrcode.png
+ 1146  ls
+ 1147  cd ..
+ 1148  ls
+ 1149  pm2 restart 1
+ 1150  mysql
+ 1151  ls
+ 1152  ls -a
+ 1153  cd .wwebjs_auth
+ 1154  ls
+ 1155  cd ..
+ 1156  cd laravel
+ 1157  ls
+ 1158  cd app
+ 1159  ls
+ 1160  cd Traits
+ 1161  ls
+ 1162  nano TextReplacementTrait.php
+ 1163  LS
+ 1164  cd .
+ 1165  cd ..
+ 1166  cd controllers
+ 1167  ls
+ 1168  cd http
+ 1169  ce Http
+ 1170  ls
+ 1171  cd Http
+ 1172  ls
+ 1173  cd Controller
+ 1174  cd Controllers
+ 1175  ls
+ 1176  nano SettingsController.php
+ 1177  pm2 list
+ 1178  apt list --upgradable
+ 1179  pm2 list
+ 1180  http://178.128.115.23/
+ 1181  pm2 logs
+ 1182  pm2 lis
+ 1183  pm2 list
+ 1184  pm2 save
+ 1185  pm2 list
+ 1186  pm2 start whatsapp-bot
+ 1187  ls
+ 1188  history
+ 1189  cd /var/www/html
+ 1190  ls
+ 1191  cd node-app
+ 1192  ls
+ 1193  pm2 restart1
+ 1194  pm2 restart 1
+ 1195  ls
+ 1196  cd whatsapp-app
+ 1197  ls
+ 1198  pm2 restart 1
+ 1199  pm2 index.js
+ 1200  pm2 start index.js
+ 1201  reboot
+ 1202  date --utc
+ 1203  history
+ 1204  cp -R laravel /home
+ 1205  cd /var/www/html
+ 1206  cp -R laravel /home
+ 1207  cp -R laravel /node-app
+ 1208  cd /home/laravel
+ 1209  git add *
+ 1210  git commit -m "22.01.2024"
+ 1211  git push origin main
+ 1212  history
+ 1213  cd /var/www/html
+ 1214  ls
+ 1215  cd laravel
+ 1216  ls
+ 1217  php artisan migrate
+ 1218  sudo apt install python3 python3-venv libaugeas0
+ 1219  sudo python3 -m venv /opt/certbot/
+ 1220  sudo /opt/certbot/bin/pip install --upgrade pip
+ 1221  sudo /opt/certbot/bin/pip install certbot certbot-apache
+ 1222  sudo /opt/certbot/bin/pip install certbot certbot-nginx
+ 1223  sudo ln -s /opt/certbot/bin/certbot /usr/bin/certbot
+ 1224  sudo apt install snapd
+ 1225  sudo snap install core; sudo snap refresh core
+ 1226  sudo snap install --classic certbot
+ 1227  sudo ln -s /snap/bin/certbot /usr/bin/certbot
+ 1228  sudo certbot --nginx
+ 1229  cd /etc/nginx/sites-available/
+ 1230  ls
+ 1231  nano laravel
+ 1232  cd ..
+ 1233  ls
+ 1234  cd sites-enabled
+ 1235  ls
+ 1236  rm laravel
+ 1237  ls
+ 1238  cd ..
+ 1239  cd sites-available
+ 1240  ls
+ 1241  sudo ln -s /etc/nginx/sites-available/laravel /etc/nginx/sites-enabled/
+ 1242  ls
+ 1243  cd ..
+ 1244  cd sites-enabled
+ 1245  ls
+ 1246  sudo nginx -t
+ 1247  sudo systemctl reload nginx
+ 1248  sudo certbot --nginx -d topgestor.pro -d www.topgestor.pro
+ 1249  cd /var/www/html/laravel
+ 1250  ls
+ 1251  php artisan config:clear
+ 1252  php artisan view:clear
+ 1253  php artisan routes:clear
+ 1254  php artisan route:clear
+ 1255  pm2 logs
+ 1256  pm2 list
+ 1257  pm2 save
+ 1258  pm2 list
+ 1259  pm2 save --force
+ 1260  pm2 list
+ 1261  cd /var/wwww/html/node-app
+ 1262  cd /var/wwww/html
+ 1263  cd /var/www/html/node-app
+ 1264  ls
+ 1265  cd whatsapp
+ 1266  cd whatsapp-app
+ 1267  ls
+ 1268  pm2 index.js
+ 1269  pm2 start index.js
+ 1270  pm2 save 
+ 1271  pm2 logs
+ 1272  ls
+ 1273  ls -a
+ 1274  rm .wwebjs_auth
+ 1275  rm .wwebjs_auth -r
+ 1276  rm -r .wwebjs_cache 
+ 1277  ls
+ 1278  pm2 stop 0
+ 1279  pm start 0
+ 1280  pm2 start 0
+ 1281  pm2 logs
+ 1282  pm2 list
+ 1283  pm2 logs
+ 1284  cd /var/www/html/node-app
+ 1285  ls
+ 1286  cd whatsapp-app
+ 1287  ls
+ 1288  ls -a
+ 1289  cd .wwebjs_auth
+ 1290  ls
+ 1291  cd ..
+ 1292  rm -r .wwebjs_auth
+ 1293  ls
+ 1294  ls -a
+ 1295  cd .wwebjs_auth
+ 1296  ls
+ 1297  cd ..
+ 1298  ls
+ 1299  rm -r .wwebjs_auth
+ 1300  ls
+ 1301  ls -a
+ 1302  rm -r .wwebjs_cache
+ 1303  ls
+ 1304  pm2 stop 0
+ 1305  pm2 start
+ 1306  pm2 start 0
+ 1307  ls
+ 1308  cd /var/www/html/node-app/whatsapp-web
+ 1309  cd /var/www/html/node-app/whatsapp-app
+ 1310  ls
+ 1311  ls -a
+ 1312  rm -r  .wwebjs_auth  .wwebjs_cache 
+ 1313  pm2 restart 0
+ 1314  ls -a
+ 1315  history
+ 1316  cd /var/www/html
+ 1317  cd node-app
+ 1318  ls
+ 1319  cd whatsapp-app
+ 1320  ls
+ 1321  pm2 logs
+ 1322  pm2 stop 0
+ 1323  pm2 start 0
+ 1324  pm2 restart 0
+ 1325  pm2 logs
+ 1326  ls -a
+ 1327  rm .wwebjs_auth  .wwebjs_cache
+ 1328  rm -r .wwebjs_auth  .wwebjs_cache
+ 1329  ls
+ 1330  ls -a
+ 1331  pm2 restart 0
+ 1332  pm2 logs
+ 1333  history
+ 1334  cd /var/www/html
+ 1335  cd laravel
+ 1336  ls
+ 1337  cd ..
+ 1338  zip -r customerSubscription.zip laravel
+ 1339  sudo apt install zip
+ 1340  zip -r customerSubscription.zip laravel
+ 1341  ls
+ 1342  history
+ 1343  pm2 logs
+ 1344  cd /var/www/html
+ 1345  ls
+ 1346  cd node-app
+ 1347  ls
+ 1348  cd whatsapp-app
+ 1349  ls
+ 1350  ls -a
+ 1351  rm -r .wwebjs_auth  .wwebjs_cache
+ 1352  pm2 logs
+ 1353  pm2 stop 0
+ 1354  pm2 start 0
+ 1355  cd /var/www/html
+ 1356  ls
+ 1357  cd laravel
+ 1358  php artisan migrate
+ 1359  php artisan cache:clear
+ 1360  cd /var/www/html
+ 1361  ls
+ 1362  cd  node-app
+ 1363  ls
+ 1364  cd whatsapp-app
+ 1365  ls
+ 1366  pm2 logs
+ 1367  pm2 
+ 1368  pm2 list
+ 1369  pm2 stop 0
+ 1370  pm2 start 0
+ 1371  ls
+ 1372  ls -a
+ 1373  sudo rm -r .wwebjs_auth  .wwebjs_cache
+ 1374  ls
+ 1375  ls -a
+ 1376  pm2 reload 0
+ 1377  pm2 restart 0
+ 1378  cd /var/www/html/laravel
+ 1379  ls
+ 1380  php artisan migrate
+ 1381  cd /var/www/html
+ 1382  ls
+ 1383  cd  node-app
+ 1384  ls
+ 1385  cd whatsapp-app
+ 1386  ls
+ 1387  nano index.js
+ 1388  sudo pm2 logs
+ 1389  sudo pm2 stop 0
+ 1390  sudo pm2 start 0
+ 1391  sudo pm2 stop 0
+ 1392  sudo pm2 start 0
+ 1393  sudo pm2 stop 0
+ 1394  sudo pm2 start 0
+ 1395  cd /var/www/html/laravel
+ 1396  cd ..
+ 1397  ls
+ 1398  cd node-app
+ 1399  ls
+ 1400  cd whatsapp-app
+ 1401  ls
+ 1402  ls -a
+ 1403  rm -r .wwebjs_auth  .wwebjs_cache
+ 1404  ls
+ 1405  cd qrcodes
+ 1406  ls
+ 1407  rm 11_qrcode.png  1_qrcode.png  2_qrcode.png  9_qrcode.png
+ 1408  ls
+ 1409  cd ..
+ 1410  ls
+ 1411  sudo pm2 reload 0
+ 1412  cd /var/www/html
+ 1413  ls
+ 1414  cd node-app
+ 1415  ls
+ 1416  cd whatsapp-app
+ 1417  ls
+ 1418  ls -a
+ 1419  rm -r .wwebjs_auth  .wwebjs_cache
+ 1420  ls
+ 1421  nano index.js
+ 1422  mysql
+ 1423  pm2 logs
+ 1424  pm2 stop 0
+ 1425  sudo pm2 start 0
+ 1426  cd ..
+ 1427  ls
+ 1428  cd laravel
+ 1429  ls
+ 1430  cd resources
+ 1431  ls
+ 1432  cd views
+ 1433  ls
+ 1434  sudo nano whatsapp/index.blade.php
+ 1435  sudo pm2 logs
+ 1436  sudo pm2 stop 2
+ 1437  sudo pm2 stop 0
+ 1438  sudo pm2 start 0
+ 1439  sudo pm2 logs
+ 1440  cd /var/www/htmml/
+ 1441  cd /var/www/html
+ 1442  ls
+ 1443  cd node-app
+ 1444  ls
+ 1445  cd whatsapp-app
+ 1446  ls
+ 1447  ls -a
+ 1448  cd .wwebjs_auth 
+ 1449  ls
+ 1450  cd ..
+ 1451  nano index.js
+ 1452  sudo pm2 stop 0
+ 1453  sudo pm2 start 0
+ 1454  nano index.js
+ 1455  sudo pm2 stop 0
+ 1456  sudo pm2 start 0
+ 1457  history
+ 1458  pm2 list
+ 1459  clear
+ 1460  history
+ 1461  cd /var/www/html/node-app/whatsapp-app
+ 1462  sudo pm2 start 0
+ 1463  sudo pm2 start index.js
+ 1464  pm2 save
+ 1465  pm2 log
+ 1466  mysql restat
+ 1467  mysql restart
+ 1468  sudo systemctl restart mysql
+ 1469  mysql -u root
+ 1470  service mysql restart
+ 1471  mysql -u laravel_user
+ 1472  mysql -u laravel_user -p
+ 1473  cd /ubuntu
+ 1474  ls
+ 1475  cd ..
+ 1476  cd /home
+ 1477  ls
+ 1478  cd /meubot
+ 1479  ls
+ 1480  cd ..
+ 1481  ls
+ 1482  cd home
+ 1483  ls
+ 1484  history
+ 1485  sudo chown -R www-data:www-data /var/www/html/laravel/storage
+ 1486  pm2 logs
+ 1487  ps aux | grep "queue:work"
+ 1488  cd /var/www/html
+ 1489  ls
+ 1490  cd laravel
+ 1491  ls
+ 1492  cd laravel
+ 1493  ps aux | grep "queue:work"
+ 1494  crontab -l
+ 1495  pgrep -f "queue:work"
+ 1496  sudo nano /etc/supervisor/conf.d/
+ 1497  cd  /etc/supervisor/conf.d/
+ 1498  ls
+ 1499  cd laravel-worker.conf
+ 1500  sudo nano laravel-worker.conf
+ 1501  cd /var/www/html
+ 1502  ls
+ 1503  cd laravel
+ 1504  ls
+ 1505  cd storage
+ 1506  ls
+ 1507  cd logs
+ 1508  ls
+ 1509  sudo nano worker.log
+ 1510  sudo nano /etc/supervisor/conf.d/laravel-worker.conf
+ 1511  sudo supervisorctl reread
+ 1512  sudo supervisorctl update
+ 1513  sudo supervisorctl start laravel_worker
+ 1514  sudo nano /etc/supervisor/conf.d/laravel-worker.conf
+ 1515  ls
+ 1516  sudo nano laravel.log
+ 1517  ls
+ 1518  sudo su root
+ 1519  ls
+ 1520  pm2 list
+ 1521  pm2 logs
+ 1522  history
+ 1523  ls
+ 1524  cd /var/www/html
+ 1525  ls
+ 1526  pm2
+ 1527  pm2 logs
+ 1528  pm2 list
+ 1529  pm2 stop 0
+ 1530  pm2 start 0
+ 1531  pm2 stop 0
+ 1532  cd /var/www/html
+ 1533  ls
+ 1534  cd node-app
+ 1535  ls
+ 1536  cd  whatsapp-app
+ 1537  ls
+ 1538  pm2 index.js
+ 1539  pm2 start index.js
+ 1540  cd /var/www/html/laravel
+ 1541  l
+ 1542  sls
+ 1543  ls
+ 1544  php artisan migrate
+ 1545  cd /www/html
+ 1546  ls
+ 1547  cd /var/www/html
+ 1548  ls
+ 1549  cd node-app
+ 1550  ls
+ 1551  cd whatsapp-app
+ 1552  ls
+ 1553  pm2 stop 0
+ 1554  pm2 start index.js
+ 1555  pm2 stop 0
+ 1556  pm2 start index.js
+ 1557  ls
+ 1558  ls -a
+ 1559  cd .wwebjs_auth
+ 1560  ls
+ 1561  cd ..
+ 1562  rm .wwebjs_auth
+ 1563  rm -r .wwebjs_auth
+ 1564  rm -r .wwebjs_cache
+ 1565  pm2 stop 0
+ 1566  pm2 start index.js
+ 1567  cd /var/www/html
+ 1568  ls
+ 1569  cd node-app
+ 1570  ls
+ 1571  cd  whatsapp-app
+ 1572  ls
+ 1573  ls -a
+ 1574  cd .wwebjs_auth
+ 1575  ls
+ 1576  pm2 stop 0
+ 1577  pm2 start 0
+ 1578  ls
+ 1579  cd ..
+ 1580  rm -r .wwebjs_auth
+ 1581  ls -a
+ 1582  rm -r .wwebjs_cache
+ 1583  pm stop 0
+ 1584  pm2 stop 0
+ 1585  pm2 start 0
+ 1586  ls
+ 1587  ls .wwebjs_auth
+ 1588  ls
+ 1589  pm2 stop 
+ 1590  pm2 start 0
+ 1591  ls .wwebjs_auth
+ 1592  sudo su root
+ 1593  pm2 logs
+ 1594  sudo systemctl restart mysqld
+ 1595  sudo systemctl restart mysql
+ 1596  sudo mysql -u root
+ 1597  cd /var/www/html
+ 1598  ls
+ 1599  cd node-app
+ 1600  ls
+ 1601  cd whatsapp-app
+ 1602  ls
+ 1603  ls -a
+ 1604  rm -r  .wwebjs_auth  .wwebjs_cache
+ 1605  pm2 stop 0
+ 1606  pm2 start 0
+ 1607  history
+ 1608  pm2 logs
+ 1609  rm -r  .wwebjs_auth  .wwebjs_cache
+ 1610  cd /var/www/html
+ 1611  cd whatsapp-app
+ 1612  ls
+ 1613  cd node-app
+ 1614  ls
+ 1615  cd whatsapp-app
+ 1616  ls -a
+ 1617  rm -r  .wwebjs_auth  .wwebjs_cache
+ 1618  ls
+ 1619  pm2 start index.js
+ 1620  pm2 stop index.js
+ 1621  pm2 start index.js
+ 1622  pm2 stop index.js
+ 1623  pm2 start index.js
+ 1624  ls
+ 1625  cd /var/www/html
+ 1626  ls
+ 1627  cd node-app
+ 1628  ls
+ 1629  cd  whatsapp-app
+ 1630  ls
+ 1631  rm -r whatsappSessions
+ 1632  ls-a
+ 1633  ls -a
+ 1634  rm -r .wwebjs_auth  .wwebjs_cache
+ 1635  rm -r whatsappSessions
+ 1636  ls
+ 1637  cd /var/www/html
+ 1638  ls
+ 1639  cd node-app
+ 1640  ls
+ 1641  cd whatsapp-app
+ 1642  ls
+ 1643  pm2 stop 0
+ 1644  pm2 start 0
+ 1645  pm2 stop 0
+ 1646  pm2 start 0
+ 1647  pm2 logs
+ 1648  cd /var/www/html/node-app
+ 1649  ls
+ 1650  cd whatsapp-app
+ 1651  ls
+ 1652  npm install flatted
+ 1653  pm2 stop 0
+ 1654  pm2 start 0
+ 1655  pm2 stop 0
+ 1656  pm2 start 0
+ 1657  pm2 logs
+ 1658  pm2 stop 0
+ 1659  pm2 start 0
+ 1660  pm2 logs
+ 1661  pm2 restart 0
+ 1662  pm2 restart 0
+ 1663  pm2 stop 0
+ 1664  pm2 start 0
+ 1665  pm2 stop 0
+ 1666  pm2 start 0
+ 1667  pm2 logs
+ 1668  pm2 start 0
+ 1669  pm2 status 0
+ 1670  pm2 logs
+ 1671  pm2 stop 0
+ 1672  pm2 logs
+ 1673  pm2 stop 0
+ 1674  pm2 start 0
+ 1675  pm2 logs
+ 1676  pm2 stop 0
+ 1677  cd /var/www/html
+ 1678  ls
+ 1679  cd node-app
+ 1680  ls
+ 1681  cd whatsapp-app
+ 1682  ls
+ 1683  ls -a
+ 1684  rm -r .wwebjs_auth  .wwebjs_cache
+ 1685  pm2 stop 0
+ 1686  pm2 start 0
+ 1687  pm2 logs
+ 1688  cd /var/www/html/node-app
+ 1689  ls
+ 1690  cd whatsapp-app
+ 1691  ls
+ 1692  ls -a
+ 1693  rm client-sessions
+ 1694  ls
+ 1695  ls
+ 1696  ls -a
+ 1697  pm2 logs
+ 1698  ls -a
+ 1699  pm2 stop 0
+ 1700  pm2 start 0
+ 1701  ls
+ 1702  ls -a
+ 1703  rm -r  .wwebjs_auth  .wwebjs_cache
+ 1704  ls -a
+ 1705  pm2 stop 0
+ 1706  pm2 start 0
+ 1707  pm2 logs
+ 1708  ls
+ 1709  cd /var/www/html/node-app/whasapp-app
+ 1710  cd /var/www/html/node-app/whasapp-api
+ 1711  cd /var/www/html/node-app
+ 1712  ls
+ 1713  cd whatsapp-app
+ 1714  ls
+ 1715  pm2 stop 0
+ 1716  pm2 logs
+ 1717  pm2 staart 0
+ 1718  pm2 start 0
+ 1719  pm2 logs
+ 1720  cd /var/www/html/node-app
+ 1721  ls
+ 1722  cd /var/www/html/node-app
+ 1723  ls
+ 1724  cd whatsapp-app
+ 1725  ls
+ 1726  ls -a
+ 1727  cd .wwebjs_auth
+ 1728  ls
+ 1729  cd ..
+ 1730  rm -r .wwebjs_auth  .wwebjs_cache 
+ 1731  ls
+ 1732  cd /var/www/html/node-app/whatsapp-app
+ 1733  ls -a
+ 1734  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1735  ls -a
+ 1736  pm2 stop 0
+ 1737  pm2 start 0
+ 1738  pm2 logs
+ 1739  cd /var/www/html/node-app/whatsapp-app
+ 1740  ls -a
+ 1741  pm2 stop 0
+ 1742  pm2 start 0
+ 1743  pm2 logs
+ 1744  cd /var/www/html/node-app/whatsapp-app
+ 1745  ls -a
+ 1746  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1747  ls -a
+ 1748  pm2 stop 0
+ 1749  pm2 start 0
+ 1750  pm2 logs
+ 1751  cd /var/www/html/node-app/whatsapp-app
+ 1752  ls -a
+ 1753  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1754  ls -a
+ 1755  pm2 stop 0
+ 1756  pm2 start 0
+ 1757  pm2 logs
+ 1758  cd /var/www/html/node-app/whatsapp-app
+ 1759  ls -a
+ 1760  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1761  pm2 stop 0
+ 1762  pm2 start 0
+ 1763  pm2 logs
+ 1764  cd /var/www/html/node-app
+ 1765  ls
+ 1766  cd  whatsapp-app
+ 1767  ls
+ 1768  ls -a 
+ 1769  pm2 lis
+ 1770  pm2 list
+ 1771  pm2 restart 0
+ 1772  cd /var/www/html/node-app
+ 1773  ls
+ 1774  whatsapp-app
+ 1775  cd whatsapp-app
+ 1776  ls
+ 1777  ls -a
+ 1778  cd /var/www/html/node-app
+ 1779  cd whatsapp-app
+ 1780  ls
+ 1781  ls -a
+ 1782  pm2 stop 0
+ 1783  pm2 index.js
+ 1784  pm2 start index.js
+ 1785  ls -a
+ 1786  mysql
+ 1787  cd /var/www/html/node-app
+ 1788  cd  whatsapp-app
+ 1789  ls
+ 1790  ls -a
+ 1791  pm2 restart 0
+ 1792  rm -r  .wwebjs_cache  .wwebjs_auth
+ 1793  pm2 restart 0
+ 1794  cd ..
+ 1795  cd laravel
+ 1796  php artisan cache:clear;
+ 1797  php artisan config:clear;
+ 1798  cd ..
+ 1799  ls
+ 1800  cd node-app
+ 1801  ls
+ 1802  cd whatsapp-app
+ 1803  ls
+ 1804  pm2 restart 0
+ 1805  ls -a
+ 1806  rm -r .wwebjs_cache .wwebjs_auth
+ 1807  pm2 restart 0
+ 1808  cd /var/www/html/node-app/whatsapp-app
+ 1809  ls
+ 1810  ls -a
+ 1811  rm -r .wwebjs_cache .wwebjs_auth
+ 1812  pm2 restart 0
+ 1813  rm -r .wwebjs_cache .wwebjs_auth
+ 1814  pm2 restart 0
+ 1815  cd /var/www/html/node-app
+ 1816  cd  whatsapp-app
+ 1817  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1818  pm2 restart 0
+ 1819  pm2 logs
+ 1820  cd /var/www/html/node-app
+ 1821  ls
+ 1822  cd  whatsapp-app
+ 1823  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1824  pm2 restart 0
+ 1825  pm2 restart 0
+ 1826  cd /var/www/html/node-app/whatsapp-app
+ 1827  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1828  ls
+ 1829  pm2 restart 0
+ 1830  sudo rm -r .wwebjs_auth .wwebjs_cache
+ 1831  pm2 restart 0
+ 1832  cd /var/www/html/node-app/whatsapp-app
+ 1833  rm -r .wwebjs_cache .wwebjs_auth
+ 1834  pm2 restart 0
+ 1835  rm -r .wwebjs_cache .wwebjs_auth
+ 1836  pm2 restart 0
+ 1837  rm -r .wwebjs_cache .wwebjs_auth
+ 1838  pm2 restart 0
+ 1839  cd /var/www/html/node-app/whatsapp-app
+ 1840  rm -r .wwebjs_cache .wwebjs_auth
+ 1841  pm2 restart 0
+ 1842  cd /var/www/html/node-app/whatsapp-app
+ 1843  rm -r .wwebjs_cache .wwebjs_auth
+ 1844  pm2 restart 0
+ 1845  mysql
+ 1846  cd /var/www/html/node-app/whatsapp-app
+ 1847  rm -r .wwebjs_cache .wwebjs_auth
+ 1848  pm2 restart 0
+ 1849  cd /var/www/html/node-app/whatsapp-app
+ 1850  pm2 restart 0
+ 1851  rm -r .wwebjs_cache .wwebjs_auth
+ 1852  pm2 restart 0
+ 1853  mysql
+ 1854  pm2 restart 0
+ 1855  mysql
+ 1856  cd /var/www/html/node-app/whatsapp-app
+ 1857  rm -r .wwebjs_cache .wwebjs_auth
+ 1858  pm2 restart 0
+ 1859  mysql
+ 1860  rm -r .wwebjs_cache .wwebjs_auth
+ 1861  pm2 restart 0
+ 1862  rm -r .wwebjs_cache .wwebjs_auth
+ 1863  pm2 restart 0
+ 1864  mysql
+ 1865  cd /var/www/html/node-app/whatsapp-app
+ 1866  rm -r .wwebjs_cache .wwebjs_auth
+ 1867  pm2 restart 0
+ 1868  mysql
+ 1869  cd /var/www/html/node-app/whatsapp-app
+ 1870  rm -r .wwebjs_cache .wwebjs_auth
+ 1871  pm2 restart 0
+ 1872  cd /var/www/html/node-app/whatsapp-app
+ 1873  rm -r .wwebjs_cache .wwebjs_auth
+ 1874  pm2 restart 0
+ 1875  mysql
+ 1876  rm -r .wwebjs_cache .wwebjs_auth
+ 1877  pm2 restart 0
+ 1878  pm2 logs
+ 1879  pm2 restart 0
+ 1880  rm -r .wwebjs_cache .wwebjs_auth
+ 1881  ls
+ 1882  cd /home
+ 1883  ls
+ 1884  history
+ 1885  clear
+ 1886  history
+ 1887  ls
+ 1888  cd /home/laravel
+ 1889  ls
+ 1890  cd ..
+ 1891  cd /www
+ 1892  cd /var/www
+ 1893  ls
+ 1894  cd html
+ 1895  ls
+ 1896  cd laravel/
+ 1897  ls
+ 1898  cd ..
+ 1899  cp laravel/ /home/
+ 1900  cp -r laravel/ /home/
+ 1901  git add *
+ 1902  cd /home/laravel/
+ 1903  git add *
+ 1904  git commit -m "17.06.2024"
+ 1905  git push origin main
+ 1906  git push https://vhiperdev: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@github.com/vhiperdev/laravel.git
+ 1907  git add *
+ 1908  git commit -m "Whatsapp WEBJS API"
+ 1909  git push https://vhiperdev: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@github.com/vhiperdev/laravel.git
+ 1910  history 2000
+ 1911  history > history.txt
